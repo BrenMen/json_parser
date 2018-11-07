@@ -1,4 +1,4 @@
-package uk.ac.uos.week6;
+package uk.ac.uos.assignment;
 
 interface Describe {
 	

@@ -1,11 +1,12 @@
-package testweek6;
+package assignmentTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-import uk.ac.uos.week6.Truth;
-import uk.ac.uos.week6.Number;
-import uk.ac.uos.week6.Text;
+
+import uk.ac.uos.assignment.Number;
+import uk.ac.uos.assignment.Text;
+import uk.ac.uos.assignment.Truth;
 
 
 class Week6Test {
