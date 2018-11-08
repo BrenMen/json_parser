@@ -1,12 +1,12 @@
 package uk.ac.uos.assignment;
 
-
 public class Number implements Describe {
-
-	Double doubleNumber = 13.62546;
+	private Double number;
+	public Number(Double number) {
+		this.number = number;
+	}
 	@Override
 	public String describe() {
-		return Double.toString(doubleNumber);
+		return Double.toString(number);
 	}
-	
 }

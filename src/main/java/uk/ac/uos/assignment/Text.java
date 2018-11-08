@@ -1,12 +1,12 @@
 package uk.ac.uos.assignment;
 
-
 public class Text implements Describe {
-
-	String exampleString = "This is a string";
+	private String text;
+	public Text(String text) {
+		this.text = text;
+	}
 	@Override
 	public String describe() {
-		return "\"" + exampleString + "\"";
+		return "\"" + text + "\"";
 	}
-	
 }

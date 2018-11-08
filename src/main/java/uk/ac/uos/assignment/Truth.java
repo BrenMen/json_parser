@@ -1,11 +1,12 @@
 package uk.ac.uos.assignment;
 
-
 public class Truth implements Describe {
-
-	Boolean exampleBoolean = true;
+	private Boolean truth;
+	public Truth(Boolean truth) {
+		this.truth = truth;
+	}
 	@Override
 	public String describe() {
-		return Boolean.toString(exampleBoolean);
+		return Boolean.toString(truth);
 	}
 }

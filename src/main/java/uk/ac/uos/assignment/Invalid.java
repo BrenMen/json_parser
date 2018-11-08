@@ -1,12 +1,12 @@
 package uk.ac.uos.assignment;
 
-
 public class Invalid implements Describe {
-
-	String exampleString = null;
+	private String invalid;
+	public Invalid(String invalid) {
+		this.invalid = invalid;
+	}
 	@Override
 	public String describe() {
-		return "\"" + exampleString + "\"";
+		return invalid;
 	}
-	
 }
