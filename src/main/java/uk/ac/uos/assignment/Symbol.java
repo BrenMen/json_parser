@@ -1,7 +1,7 @@
 package uk.ac.uos.assignment;
 
 //Class sets all the JSON symbols needed
-public class SymbolSetter {
+public class Symbol {
 	
 	//Defining the enum type and the value to store text
 		public final Type type;
@@ -14,12 +14,12 @@ public class SymbolSetter {
 		LEFT_CURLY_BRACKET, RIGHT_CURLY_BRACKET, SPACE};
 	
 	//Constructs the JSON symbol with a type
-	public SymbolSetter(Type type) {
+	public Symbol(Type type) {
 		this(type, null);
 	}
 	
 	//Constructs the JSON symbol with both the type and value
-	public SymbolSetter(Type type, String value) {
+	public Symbol(Type type, String value) {
 		this.type = type;
 		this.value = value;
 	}
