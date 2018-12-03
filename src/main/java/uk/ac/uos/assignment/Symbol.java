@@ -9,7 +9,7 @@ public class Symbol {
 	
 	//enum defines the necessary types ready to compare the
 	//string formatted JSON in the LexicalConverter
-	public enum Type {COMMA, COLON, STRING, INTEGER, TRUE_BOOLEAN,
+	public enum Type {COMMA, COLON, STRING, NUMBER, TRUE_BOOLEAN,
 		FALSE_BOOLEAN, NULL_BOOLEAN, LEFT_SQUARE_BRACKET, RIGHT_SQUARE_BRACKET,
 		LEFT_CURLY_BRACKET, RIGHT_CURLY_BRACKET, SPACE};
 	
