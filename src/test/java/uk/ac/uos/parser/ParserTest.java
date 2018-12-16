@@ -144,17 +144,6 @@ public class ParserTest {
 		assertEquals(new HashMap<String,Object>(), Parser.mainObject.JSONObjectContents);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@Test
 	public void parsingCorrectEmptyArrayTest() throws CustomException {
 		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
@@ -165,7 +154,6 @@ public class ParserTest {
 		JSONArray firstArray = Parser.parseArray(symbolsList);
 		assertEquals(0, firstArray.JSONArrayContents.size());
 	}
-	
 
 	@Test
 	public void parsingCorrectEmptyObjectTest() throws CustomException {
@@ -195,6 +183,31 @@ public class ParserTest {
 		assertEquals(1, firstArray.JSONArrayContents.size());
 		JSONArray secondArray = (JSONArray) firstArray.JSONArrayContents.get(0);
 		assertEquals(0, secondArray.JSONArrayContents.size());
+	}
+	
+	@Test
+	public void parsingCorrectArrayWithObjectTest() throws CustomException {
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
+		JSONSymbol symbolTwo = new JSONSymbol(JSONSymbol.Type.LEFT_CURLY_BRACKET);
+		JSONSymbol symbolThree = new JSONSymbol(JSONSymbol.Type.STRING, "Oh lookie there, a String");
+		JSONSymbol symbolFour = new JSONSymbol(JSONSymbol.Type.COLON);
+		JSONSymbol symbolFive = new JSONSymbol(JSONSymbol.Type.FALSE_BOOLEAN);
+		JSONSymbol symbolSix = new JSONSymbol(JSONSymbol.Type.RIGHT_CURLY_BRACKET);
+		JSONSymbol symbolSeven = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
+		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
+		symbolsList.add(symbolOne);
+		symbolsList.add(symbolTwo);
+		symbolsList.add(symbolThree);
+		symbolsList.add(symbolFour);
+		symbolsList.add(symbolFive);
+		symbolsList.add(symbolSix);
+		symbolsList.add(symbolSeven);
+		
+		JSONArray firstArray = Parser.parseArray(symbolsList);
+		assertEquals(1, firstArray.JSONArrayContents.size());
+		JSONObject firstObject = (JSONObject) firstArray.JSONArrayContents.get(0);
+		assertEquals(1, firstObject.JSONObjectContents.size());
+		assertEquals(false, firstObject.JSONObjectContents.get("Oh lookie there, a String"));
 	}
 	
 	@Test
@@ -271,8 +284,6 @@ public class ParserTest {
 		assertEquals(false, secondArray.JSONArrayContents.get(1));
 		assertEquals(null, firstArray.JSONArrayContents.get(1));
 	}
-	
-	
 	
 	@Test
 	public void parsingCorrectArrayWithNullTest() throws CustomException {
@@ -418,22 +429,6 @@ public class ParserTest {
 		assertEquals("This should be a String", firstArray.JSONArrayContents.get(5));
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@Test
 	public void parsingIncorrectEmptyArrayTest() throws CustomException {
 		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
@@ -452,8 +447,6 @@ public class ParserTest {
 		assertTrue(exception);
 		assertEquals("Error! This is an invalid Array.", customMessage);
 	}
-	
-	
 	
 	@Test
 	public void parsingIncorrectArrayWithoutCommaTest() throws CustomException {
@@ -498,16 +491,6 @@ public class ParserTest {
 		assertEquals("Error! This is an invalid Array.", customMessage);
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@Test
 	public void parsingCorrectObjectWithNullBooleanTest() throws CustomException {
 		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.LEFT_CURLY_BRACKET);
@@ -701,370 +684,233 @@ public class ParserTest {
 		assertEquals(false, secondObject.JSONObjectContents.get("Tres, Quatre, String"));
 	}
 	
-//	@Test
-//	public void parsingAnArrayWithAnObjectInIt() throws CustomException {
-//		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
-//		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.LEFT_CURLY_BRACKET);
-//		JSONSymbol symbol3 = new JSONSymbol(JSONSymbol.Type.STRING, "false");
-//		JSONSymbol symbol4 = new JSONSymbol(JSONSymbol.Type.COLON);
-//		JSONSymbol symbol5 = new JSONSymbol(JSONSymbol.Type.FALSE_BOOLEAN);
-//		JSONSymbol symbol6 = new JSONSymbol(JSONSymbol.Type.RIGHT_CURLY_BRACKET);
-//		JSONSymbol symbol7 = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
-//		ArrayList<JSONSymbol> listOfSymbols = new ArrayList<JSONSymbol>();
-//		listOfSymbols.add(symbol1);
-//		listOfSymbols.add(symbol2);
-//		listOfSymbols.add(symbol3);
-//		listOfSymbols.add(symbol4);
-//		listOfSymbols.add(symbol5);
-//		listOfSymbols.add(symbol6);
-//		listOfSymbols.add(symbol7);
-//		
-//		JSONArray jsonArray = Parser.parseArray(listOfSymbols);
-//		assertEquals(1, jsonArray.JSONArrayContents.size());
-//		JSONObject jsonObject = (JSONObject) jsonArray.JSONArrayContents.get(0);
-//		assertEquals(1, jsonObject.JSONObjectContents.size());
-//		assertEquals(false, jsonObject.JSONObjectContents.get("false"));
-//	}
-//	
-//	@Test
-//	public void parsingAnObjectWithATwoStrings() throws CustomException {
-//		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.LEFT_CURLY_BRACKET);
-//		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.STRING, "Name");
-//		JSONSymbol symbol3 = new JSONSymbol(JSONSymbol.Type.COLON);
-//		JSONSymbol symbol4 = new JSONSymbol(JSONSymbol.Type.STRING, "Alistair");
-//		JSONSymbol symbol5 = new JSONSymbol(JSONSymbol.Type.COMMA);
-//		JSONSymbol symbol6 = new JSONSymbol(JSONSymbol.Type.STRING, "Age");
-//		JSONSymbol symbol7 = new JSONSymbol(JSONSymbol.Type.COLON);
-//		JSONSymbol symbol8 = new JSONSymbol(JSONSymbol.Type.STRING, "20");
-//		JSONSymbol symbol9 = new JSONSymbol(JSONSymbol.Type.RIGHT_CURLY_BRACKET);
-//		ArrayList<JSONSymbol> listOfSymbols = new ArrayList<JSONSymbol>();
-//		listOfSymbols.add(symbol1);
-//		listOfSymbols.add(symbol2);
-//		listOfSymbols.add(symbol3);
-//		listOfSymbols.add(symbol4);
-//		listOfSymbols.add(symbol5);
-//		listOfSymbols.add(symbol6);
-//		listOfSymbols.add(symbol7);
-//		listOfSymbols.add(symbol8);
-//		listOfSymbols.add(symbol9);
-//		
-//		JSONObject jsonObject = Parser.parseObject(listOfSymbols);
-//		assertEquals(2, jsonObject.JSONObjectContents.size());
-//		assertEquals("Alistair", jsonObject.JSONObjectContents.get("Name"));
-//		assertEquals("20", jsonObject.JSONObjectContents.get("Age"));
-//	}
-//	
-//	
-//	
-//	
-//	
-//	@Test
-//	public void parsingIncorrectEmptyObjectTest() throws CustomException {
-//		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.LEFT_CURLY_BRACKET);
-//		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
-//		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
-//		symbolsList.add(symbol1);
-//		symbolsList.add(symbol2);
-//		
-//		boolean exception = false;
-//		String customMessage = "";
-//		
-//		try {
-//			Parser.parseObject(symbolsList);
-//		} catch (CustomException error) {
-//			exception = true;
-//			customMessage = error.getMessage();
-//		}
-//		
-//		assertTrue(exception);
-//		assertEquals("Error! This is an invalid Object.",customMessage);
-//	}
-//
-//	@Test
-//	public void parsingIncorrectObjectWithoutCommaTest() throws CustomException {
-//		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.LEFT_CURLY_BRACKET);
-//		JSONSymbol symbolTwo = new JSONSymbol(JSONSymbol.Type.NUMBER, "7656");
-//		JSONSymbol symbolThree = new JSONSymbol(JSONSymbol.Type.COLON);
-//		JSONSymbol symbolFour = new JSONSymbol(JSONSymbol.Type.NUMBER, "76.56");
-//		JSONSymbol symbolFive = new JSONSymbol(JSONSymbol.Type.STRING, "Good");
-//		JSONSymbol symbolSix = new JSONSymbol(JSONSymbol.Type.COLON);
-//		JSONSymbol symbolSeven = new JSONSymbol(JSONSymbol.Type.TRUE_BOOLEAN);
-//		JSONSymbol symbolEight = new JSONSymbol(JSONSymbol.Type.RIGHT_CURLY_BRACKET);
-//		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
-//		symbolsList.add(symbolOne);
-//		symbolsList.add(symbolTwo);
-//		symbolsList.add(symbolThree);
-//		symbolsList.add(symbolFour);
-//		symbolsList.add(symbolFive);
-//		symbolsList.add(symbolSix);
-//		symbolsList.add(symbolSeven);
-//		symbolsList.add(symbolEight);
-//		
-//		boolean exception = false;
-//		String customMessage = "";
-//		try {
-//			Parser.parseObject(symbolsList);
-//		} catch (CustomException error) {
-//			exception = true;
-//			customMessage = error.getMessage();
-//		}
-//		assertTrue(exception);
-//		assertEquals("Error! Missing comma value in Object.", customMessage);
-//	}
-//	
-//	@Test
-//	public void parsingIncorrectObjectTest() throws CustomException {
-//		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.LEFT_CURLY_BRACKET);
-//		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
-//		symbolsList.add(symbolOne);
-//		
-//		boolean exception = false;
-//		String customMessage = "";
-//		
-//		try {
-//			Parser.parseObject(symbolsList);
-//		} catch (CustomException error) {
-//			exception = true;
-//			customMessage = error.getMessage();
-//		}
-//		
-//		assertTrue(exception);
-//		assertEquals("Error! This is an invalid Object.", customMessage);
-//	}
-//	
-//
-//	// work through these below:
-//	
-//
-//	@Test
-//	public void parsingATrueValuePairThatsTooShort() throws CustomException {
-//		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.STRING, "KEY");
-//		ArrayList<JSONSymbol> listOfSymbols = new ArrayList<JSONSymbol>();
-//		listOfSymbols.add(symbol1);
-//		
-//		boolean thrown = false;
-//		String errorMessage = "";
-//		
-//		try {
-//			Parser.parseHash(listOfSymbols);
-//		} catch (CustomException error) {
-//			thrown = true;
-//			errorMessage = error.getMessage();
-//		}
-//		
-//		assertTrue(thrown);
-//		assertEquals("Error! This is an invalid Hash.",errorMessage);
-//	}
-//	
-//	@Test
-//	public void parsingATrueValuePairWithoutColon() throws CustomException {
-//		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.STRING, "KEY");
-//		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.TRUE_BOOLEAN);
-//		JSONSymbol symbol3 = new JSONSymbol(JSONSymbol.Type.TRUE_BOOLEAN);
-//		ArrayList<JSONSymbol> listOfSymbols = new ArrayList<JSONSymbol>();
-//		listOfSymbols.add(symbol1);
-//		listOfSymbols.add(symbol2);
-//		listOfSymbols.add(symbol3);
-//		
-//		boolean thrown = false;
-//		String errorMessage = "";
-//		
-//		try {
-//			Parser.parseHash(listOfSymbols);
-//		} catch (CustomException error) {
-//			thrown = true;
-//			errorMessage = error.getMessage();
-//		}
-//		
-//		assertTrue(thrown);
-//		assertEquals("Error! This is an invalid Hash.",errorMessage);
-//	}
-//	
-//	@Test
-//	public void parsingAPairThatHasAnIncorrectValue() throws CustomException {
-//		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.STRING, "KEY");
-//		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.COLON);
-//		JSONSymbol symbol3 = new JSONSymbol(JSONSymbol.Type.SPACE);
-//		ArrayList<JSONSymbol> listOfSymbols = new ArrayList<JSONSymbol>();
-//		listOfSymbols.add(symbol1);
-//		listOfSymbols.add(symbol2);
-//		listOfSymbols.add(symbol3);
-//		
-//		boolean thrown = false;
-//		String errorMessage = "";
-//		
-//		try {
-//			Parser.parseHash(listOfSymbols);
-//		} catch (CustomException error) {
-//			thrown = true;
-//			errorMessage = error.getMessage();
-//		}
-//		
-//		assertTrue(thrown);
-//		assertEquals("Error! An Object cannot contain this value.",errorMessage);
-//	}
-//	
-//	@Test
-//	public void parsingATrueValuePairWithoutStringThrowsException() throws CustomException {
-//		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.NULL_BOOLEAN);
-//		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.COLON);
-//		JSONSymbol symbol3 = new JSONSymbol(JSONSymbol.Type.TRUE_BOOLEAN);
-//		ArrayList<JSONSymbol> listOfSymbols = new ArrayList<JSONSymbol>();
-//		listOfSymbols.add(symbol1);
-//		listOfSymbols.add(symbol2);
-//		listOfSymbols.add(symbol3);
-//		
-//		boolean thrown = false;
-//		String errorMessage = "";
-//		
-//		try {
-//			Parser.parseHash(listOfSymbols);
-//		} catch (CustomException error) {
-//			thrown = true;
-//			errorMessage = error.getMessage();
-//		}
-//		
-//		assertTrue(thrown);
-//		assertEquals("Error! This is an invalid Hash.",errorMessage);
-//	}
-//	
-//	@Test
-//	public void parsingATrueValuePair() throws CustomException {
-//		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.STRING, "KEY");
-//		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.COLON);
-//		JSONSymbol symbol3 = new JSONSymbol(JSONSymbol.Type.TRUE_BOOLEAN);
-//		ArrayList<JSONSymbol> listOfSymbols = new ArrayList<JSONSymbol>();
-//		listOfSymbols.add(symbol1);
-//		listOfSymbols.add(symbol2);
-//		listOfSymbols.add(symbol3);
-//		
-//		ArrayList<Object> keyValuePair = Parser.parseHash(listOfSymbols);
-//		assertEquals(2, keyValuePair.size());
-//		assertEquals("KEY", keyValuePair.get(0));
-//		assertEquals(true, keyValuePair.get(1));
-//	}
-//	
-//	@Test
-//	public void parsingAFalseValuePair() throws CustomException {
-//		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.STRING, "KEY");
-//		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.COLON);
-//		JSONSymbol symbol3 = new JSONSymbol(JSONSymbol.Type.FALSE_BOOLEAN);
-//		ArrayList<JSONSymbol> listOfSymbols = new ArrayList<JSONSymbol>();
-//		listOfSymbols.add(symbol1);
-//		listOfSymbols.add(symbol2);
-//		listOfSymbols.add(symbol3);
-//		
-//		ArrayList<Object> keyValuePair = Parser.parseHash(listOfSymbols);
-//		assertEquals(2, keyValuePair.size());
-//		assertEquals("KEY", keyValuePair.get(0));
-//		assertEquals(false, keyValuePair.get(1));
-//	}
-//	
-//	@Test
-//	public void parsingANullValuePair() throws CustomException {
-//		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.STRING, "KEY");
-//		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.COLON);
-//		JSONSymbol symbol3 = new JSONSymbol(JSONSymbol.Type.NULL_BOOLEAN);
-//		ArrayList<JSONSymbol> listOfSymbols = new ArrayList<JSONSymbol>();
-//		listOfSymbols.add(symbol1);
-//		listOfSymbols.add(symbol2);
-//		listOfSymbols.add(symbol3);
-//		
-//		ArrayList<Object> keyValuePair = Parser.parseHash(listOfSymbols);
-//		assertEquals(2, keyValuePair.size());
-//		assertEquals("KEY", keyValuePair.get(0));
-//		assertEquals(null, keyValuePair.get(1));
-//	}
-//	
-//	@Test
-//	public void parsingAStringValuePair() throws CustomException {
-//		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.STRING, "KEY");
-//		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.COLON);
-//		JSONSymbol symbol3 = new JSONSymbol(JSONSymbol.Type.STRING, "value");
-//		ArrayList<JSONSymbol> listOfSymbols = new ArrayList<JSONSymbol>();
-//		listOfSymbols.add(symbol1);
-//		listOfSymbols.add(symbol2);
-//		listOfSymbols.add(symbol3);
-//		
-//		ArrayList<Object> keyValuePair = Parser.parseHash(listOfSymbols);
-//		assertEquals(2, keyValuePair.size());
-//		assertEquals("KEY", keyValuePair.get(0));
-//		assertEquals("value", keyValuePair.get(1));
-//	}
-//	
-//	@Test
-//	public void parsingALongValuePair() throws CustomException {
-//		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.STRING, "KEY");
-//		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.COLON);
-//		JSONSymbol symbol3 = new JSONSymbol(JSONSymbol.Type.NUMBER, "10661066");
-//		ArrayList<JSONSymbol> listOfSymbols = new ArrayList<JSONSymbol>();
-//		listOfSymbols.add(symbol1);
-//		listOfSymbols.add(symbol2);
-//		listOfSymbols.add(symbol3);
-//		
-//		ArrayList<Object> keyValuePair = Parser.parseHash(listOfSymbols);
-//		assertEquals(2, keyValuePair.size());
-//		assertEquals("KEY", keyValuePair.get(0));
-//		assertEquals((long) 10661066, keyValuePair.get(1));
-//	}
-//	
-//	@Test
-//	public void parsingADoubleValuePair() throws CustomException {
-//		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.STRING, "KEY");
-//		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.COLON);
-//		JSONSymbol symbol3 = new JSONSymbol(JSONSymbol.Type.NUMBER, "1066.1066");
-//		ArrayList<JSONSymbol> listOfSymbols = new ArrayList<JSONSymbol>();
-//		listOfSymbols.add(symbol1);
-//		listOfSymbols.add(symbol2);
-//		listOfSymbols.add(symbol3);
-//		
-//		ArrayList<Object> keyValuePair = Parser.parseHash(listOfSymbols);
-//		assertEquals(2, keyValuePair.size());
-//		assertEquals("KEY", keyValuePair.get(0));
-//		assertEquals((double) 1066.1066, keyValuePair.get(1));
-//	}
-//	
-//	@Test
-//	public void parsingAnEmptyArrayValuePair() throws CustomException {
-//		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.STRING, "KEY");
-//		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.COLON);
-//		JSONSymbol symbol3 = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
-//		JSONSymbol symbol4 = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
-//		ArrayList<JSONSymbol> listOfSymbols = new ArrayList<JSONSymbol>();
-//		listOfSymbols.add(symbol1);
-//		listOfSymbols.add(symbol2);
-//		listOfSymbols.add(symbol3);
-//		listOfSymbols.add(symbol4);
-//		
-//		ArrayList<Object> keyValuePair = Parser.parseHash(listOfSymbols);
-//		assertEquals(2, keyValuePair.size());
-//		assertEquals("KEY", keyValuePair.get(0));
-//		JSONArray secondTierArray = (JSONArray) keyValuePair.get(1);
-//		assertEquals(0, secondTierArray.JSONArrayContents.size());
-//	}
-//	
-//	@Test
-//	public void parsingAnArrayWithTrueValuePair() throws CustomException {
-//		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.STRING, "KEY");
-//		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.COLON);
-//		JSONSymbol symbol3 = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
-//		JSONSymbol symbol4 = new JSONSymbol(JSONSymbol.Type.TRUE_BOOLEAN);
-//		JSONSymbol symbol5 = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
-//		ArrayList<JSONSymbol> listOfSymbols = new ArrayList<JSONSymbol>();
-//		listOfSymbols.add(symbol1);
-//		listOfSymbols.add(symbol2);
-//		listOfSymbols.add(symbol3);
-//		listOfSymbols.add(symbol4);
-//		listOfSymbols.add(symbol5);
-//		
-//		ArrayList<Object> keyValuePair = Parser.parseHash(listOfSymbols);
-//		assertEquals(2, keyValuePair.size());
-//		assertEquals("KEY", keyValuePair.get(0));
-//		JSONArray secondTierArray = (JSONArray) keyValuePair.get(1);
-//		assertEquals(1, secondTierArray.JSONArrayContents.size());
-//		assertEquals(true, secondTierArray.JSONArrayContents.get(0));
-//	}
-	
+	@Test
+	public void parsingIncorrectEmptyObjectTest() throws CustomException {
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.LEFT_CURLY_BRACKET);
+		JSONSymbol symbolTwo = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
+		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
+		symbolsList.add(symbolOne);
+		symbolsList.add(symbolTwo);
+		
+		boolean exception = false;
+		String customMessage = "";
+		
+		try {
+			Parser.parseObject(symbolsList);
+		} catch (CustomException error) {
+			exception = true;
+			customMessage = error.getMessage();
+		}
+		
+		assertTrue(exception);
+		assertEquals("Error! This is an invalid Object.", customMessage);
+	}
 
+	@Test
+	public void parsingIncorrectObjectWithoutCommaTest() throws CustomException {
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.LEFT_CURLY_BRACKET);
+		JSONSymbol symbolTwo = new JSONSymbol(JSONSymbol.Type.NUMBER, "7656");
+		JSONSymbol symbolThree = new JSONSymbol(JSONSymbol.Type.COLON);
+		JSONSymbol symbolFour = new JSONSymbol(JSONSymbol.Type.NUMBER, "76.56");
+		JSONSymbol symbolFive = new JSONSymbol(JSONSymbol.Type.STRING, "String To me, String to you");
+		JSONSymbol symbolSix = new JSONSymbol(JSONSymbol.Type.COLON);
+		JSONSymbol symbolSeven = new JSONSymbol(JSONSymbol.Type.TRUE_BOOLEAN);
+		JSONSymbol symbolEight = new JSONSymbol(JSONSymbol.Type.RIGHT_CURLY_BRACKET);
+		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
+		symbolsList.add(symbolOne);
+		symbolsList.add(symbolTwo);
+		symbolsList.add(symbolThree);
+		symbolsList.add(symbolFour);
+		symbolsList.add(symbolFive);
+		symbolsList.add(symbolSix);
+		symbolsList.add(symbolSeven);
+		symbolsList.add(symbolEight);
+		
+		boolean exception = false;
+		String customMessage = "";
+		try {
+			Parser.parseObject(symbolsList);
+		} catch (CustomException error) {
+			exception = true;
+			customMessage = error.getMessage();
+		}
+		assertTrue(exception);
+		assertEquals("Error! Missing comma value in Object.", customMessage);
+	}
+	
+	@Test
+	public void parsingIncorrectObjectTest() throws CustomException {
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.LEFT_CURLY_BRACKET);
+		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
+		symbolsList.add(symbolOne);
+		boolean exception = false;
+		String customMessage = "";
+		try {
+			Parser.parseObject(symbolsList);
+		} catch (CustomException error) {
+			exception = true;
+			customMessage = error.getMessage();
+		}
+		assertTrue(exception);
+		assertEquals("Error! This is an invalid Object.", customMessage);
+	}
+
+	@Test
+	public void parsingCorrectTrueBooleanHash() throws CustomException {
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.STRING, "I'm a KEY");
+		JSONSymbol symbolTwo = new JSONSymbol(JSONSymbol.Type.COLON);
+		JSONSymbol symbolThree = new JSONSymbol(JSONSymbol.Type.TRUE_BOOLEAN);
+		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
+		symbolsList.add(symbolOne);
+		symbolsList.add(symbolTwo);
+		symbolsList.add(symbolThree);
+		
+		ArrayList<Object> hashPair = Parser.parseHash(symbolsList);
+		assertEquals(2, hashPair.size());
+		assertEquals("I'm a KEY", hashPair.get(0));
+		assertEquals(true, hashPair.get(1));
+	}
+	
+	@Test
+	public void parsingCorrectNullHashTest() throws CustomException {
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.STRING, "I'm a Key");
+		JSONSymbol symbolTwo = new JSONSymbol(JSONSymbol.Type.COLON);
+		JSONSymbol symbolThree = new JSONSymbol(JSONSymbol.Type.NULL_BOOLEAN);
+		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
+		symbolsList.add(symbolOne);
+		symbolsList.add(symbolTwo);
+		symbolsList.add(symbolThree);
+		
+		ArrayList<Object> hashPair = Parser.parseHash(symbolsList);
+		assertEquals(2, hashPair.size());
+		assertEquals("I'm a Key", hashPair.get(0));
+		assertEquals(null, hashPair.get(1));
+	}
+	
+	@Test
+	public void parsingCorrectStringHashTest() throws CustomException {
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.STRING, "I'm a Key");
+		JSONSymbol symbolTwo = new JSONSymbol(JSONSymbol.Type.COLON);
+		JSONSymbol symbolThree = new JSONSymbol(JSONSymbol.Type.STRING, "Look at that, a correct String");
+		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
+		symbolsList.add(symbolOne);
+		symbolsList.add(symbolTwo);
+		symbolsList.add(symbolThree);
+		
+		ArrayList<Object> hashPair = Parser.parseHash(symbolsList);
+		assertEquals(2, hashPair.size());
+		assertEquals("I'm a Key", hashPair.get(0));
+		assertEquals("Look at that, a correct String", hashPair.get(1));
+	}
+	
+	@Test
+	public void parsingCorrectLongHashTest() throws CustomException {
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.STRING, "I'm a Key");
+		JSONSymbol symbolTwo = new JSONSymbol(JSONSymbol.Type.COLON);
+		JSONSymbol symbolThree = new JSONSymbol(JSONSymbol.Type.NUMBER, "62864");
+		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
+		symbolsList.add(symbolOne);
+		symbolsList.add(symbolTwo);
+		symbolsList.add(symbolThree);
+		ArrayList<Object> hashPair = Parser.parseHash(symbolsList);
+		assertEquals(2, hashPair.size());
+		assertEquals("I'm a Key", hashPair.get(0));
+		assertEquals((long) 62864, hashPair.get(1));
+	}
+	
+	@Test
+	public void parsingCorrectDoubleHashTest() throws CustomException {
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.STRING, "I'm a Key");
+		JSONSymbol symbolTwo = new JSONSymbol(JSONSymbol.Type.COLON);
+		JSONSymbol symbolThree = new JSONSymbol(JSONSymbol.Type.NUMBER, "6.2864");
+		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
+		symbolsList.add(symbolOne);
+		symbolsList.add(symbolTwo);
+		symbolsList.add(symbolThree);
+		ArrayList<Object> hashPair = Parser.parseHash(symbolsList);
+		assertEquals(2, hashPair.size());
+		assertEquals("I'm a Key", hashPair.get(0));
+		assertEquals((double) 6.2864, hashPair.get(1));
+	}
+	
+	@Test
+	public void parsingIncorrectHashTest() throws CustomException {
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.STRING, "I'm a Key");
+		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
+		symbolsList.add(symbolOne);
+		boolean exception = false;
+		String customMessage = "";
+		try {
+			Parser.parseHash(symbolsList);
+		} catch (CustomException error) {
+			exception = true;
+			customMessage = error.getMessage();
+		}
+		assertTrue(exception);
+		assertEquals("Error! This is an invalid Hash.",customMessage);
+	}
+	
+	@Test
+	public void parsingIncorrectHashWithoutColonTest() throws CustomException {
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.STRING, "I'm a Key");
+		JSONSymbol symbolTwo = new JSONSymbol(JSONSymbol.Type.TRUE_BOOLEAN);
+		JSONSymbol symbolThree = new JSONSymbol(JSONSymbol.Type.TRUE_BOOLEAN);
+		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
+		symbolsList.add(symbolOne);
+		symbolsList.add(symbolTwo);
+		symbolsList.add(symbolThree);
+		boolean exception = false;
+		String customMessage = "";
+		try {
+			Parser.parseHash(symbolsList);
+		} catch (CustomException error) {
+			exception = true;
+			customMessage = error.getMessage();
+		}
+		assertTrue(exception);
+		assertEquals("Error! This is an invalid Hash.",customMessage);
+	}
+	
+	@Test
+	public void parsingIncorrectHashWithValueTest() throws CustomException {
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.STRING, "I'm a Key");
+		JSONSymbol symbolTwo = new JSONSymbol(JSONSymbol.Type.COLON);
+		JSONSymbol symbolThree = new JSONSymbol(JSONSymbol.Type.SPACE);
+		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
+		symbolsList.add(symbolOne);
+		symbolsList.add(symbolTwo);
+		symbolsList.add(symbolThree);
+		boolean exception = false;
+		String customMessage = "";
+		try {
+			Parser.parseHash(symbolsList);
+		} catch (CustomException error) {
+			exception = true;
+			customMessage = error.getMessage();
+		}
+		assertTrue(exception);
+		assertEquals("Error! A Hash cannot contain this value.",customMessage);
+	}
+	
+	@Test
+	public void parsingIncorrectHashWithoutStringThrowsExceptionTest() throws CustomException {
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.NULL_BOOLEAN);
+		JSONSymbol symbolTwo = new JSONSymbol(JSONSymbol.Type.COLON);
+		JSONSymbol symbolThree = new JSONSymbol(JSONSymbol.Type.TRUE_BOOLEAN);
+		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
+		symbolsList.add(symbolOne);
+		symbolsList.add(symbolTwo);
+		symbolsList.add(symbolThree);
+		boolean exception = false;
+		String customMessage = "";
+		try {
+			Parser.parseHash(symbolsList);
+		} catch (CustomException error) {
+			exception = true;
+			customMessage = error.getMessage();
+		}
+		assertTrue(exception);
+		assertEquals("Error! This is an invalid Hash.",customMessage);
+	}
 }
 	

@@ -173,7 +173,7 @@ public class JSONParser {
 				symbolsArray.add(thisSymbol);
 				hashValueList.add(parseArray(symbolsArray));
 			} else {
-				throw new CustomException("Error! An Object cannot contain this value.");
+				throw new CustomException("Error! A Hash cannot contain this value.");
 			}
 		}
 		return hashValueList;
