@@ -1,4 +1,4 @@
-package uk.ac.uos.assignment;
+package uk.ac.uos.parser;
 
 import java.io.StringReader;
 
@@ -73,7 +73,7 @@ public class JSONAnalyser {
 		}
 		return result;
 	}
-	
+
 	// Builder for whitespace
 	public JSONSymbol buildWhitespace(int position, JSONSymbol result) throws IOException, CustomException {
 		while (Character.isWhitespace(position)) {
@@ -96,7 +96,7 @@ public class JSONAnalyser {
 		return result;
 
 	}
-	
+
 	// Builder for a null boolean
 	public JSONSymbol buildNullBoolean(int position, JSONSymbol result) throws IOException, CustomException {
 		position = pushbackReader.read();
@@ -107,13 +107,13 @@ public class JSONAnalyser {
 				if (position == 'l') {
 					result = new JSONSymbol(JSONSymbol.Type.NULL_BOOLEAN);
 				} else {
-					throw new CustomException("BOOM! Error. Invalid true value.");
+					throw new CustomException("Error! This is an invalid Null value.");
 				}
 			} else {
-				throw new CustomException("BOOM! Error. Invalid true value.");
+				throw new CustomException("Error! This is an invalid Null value.");
 			}
 		} else {
-			throw new CustomException("BOOM! Error. Invalid true value.");
+			throw new CustomException("Error! This is an invalid Null value.");
 		}
 		return result;
 	}
@@ -128,17 +128,17 @@ public class JSONAnalyser {
 				if (position == 'e') {
 					result = new JSONSymbol(JSONSymbol.Type.TRUE_BOOLEAN);
 				} else {
-					throw new CustomException("BOOM! Error. Invalid true value.");
+					throw new CustomException("Error! This is an invalid True value.");
 				}
 			} else {
-				throw new CustomException("BOOM! Error. Invalid true value.");
+				throw new CustomException("Error! This is an invalid True value.");
 			}
 		} else {
-			throw new CustomException("BOOM! Error. Invalid true value.");
+			throw new CustomException("Error! This is an invalid True value.");
 		}
 		return result;
 	}
-	
+
 	// Builder for a false boolean
 	public JSONSymbol buildFalseBoolean(int position, JSONSymbol result) throws IOException, CustomException {
 		position = pushbackReader.read();
@@ -151,25 +151,25 @@ public class JSONAnalyser {
 					if (position == 'e') {
 						result = new JSONSymbol(JSONSymbol.Type.FALSE_BOOLEAN);
 					} else {
-						throw new CustomException("BOOM! Error. Invalid true value.");
+						throw new CustomException("Error! This is an invalid False value.");
 					}
 				} else {
-					throw new CustomException("BOOM! Error. Invalid true value.");
+					throw new CustomException("Error! This is an invalid False value.");
 				}
 			} else {
-				throw new CustomException("BOOM! Error. Invalid true value.");
+				throw new CustomException("Error! This is an invalid False value.");
 			}
 		} else {
-			throw new CustomException("BOOM! Error. Invalid true value.");
+			throw new CustomException("Error! This is an invalid False value.");
 		}
 		return result;
 	}
-	
+
 	// Builder for a number
 	public JSONSymbol buildNumber(int position, JSONSymbol result) throws IOException, CustomException {
 		String finalNumber = "";
-		while (Character.isDigit(position) || position == '.' || position == '-'
-						|| position == '+' || position == 'e' || position == 'E') {
+		while (Character.isDigit(position) || position == 'e' || position == 'E' || position == '+' || position == '-'
+				|| position == '.') {
 			finalNumber += (char) position;
 
 			position = pushbackReader.read();

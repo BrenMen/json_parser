@@ -1,13 +1,13 @@
-package uk.ac.uos.assignment;
+package uk.ac.uos.parser;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class JSONObject {
-	Map<String, JSONObject> JSONObjectContent;
+	Map<String, Object> JSONObjectContents;
 
 	// Using array list so that the JSONobject can be parsed into the constructor.
-	JSONObject(HashMap<String, JSONObject> map) {
-		this.JSONObjectContent = map;
+	JSONObject(HashMap<String, Object> map) {
+		this.JSONObjectContents = map;
 	}
 }
