@@ -1,4 +1,4 @@
-package uk.ac.uos.parser;
+package src.main.java.uk.ac.uos.assignment;
 
 // Class built to contain a constructor that allows me to pass
 // custom messages into the exception.

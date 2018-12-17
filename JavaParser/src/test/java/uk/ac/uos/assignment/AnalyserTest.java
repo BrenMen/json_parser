@@ -1,4 +1,4 @@
-package uk.ac.uos.parser;
+package src.test.java.uk.ac.uos.assignment;
 
 import java.io.IOException;
 import java.io.StringReader;

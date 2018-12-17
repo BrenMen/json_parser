@@ -1,4 +1,4 @@
-package uk.ac.uos.parser;
+package src.main.java.uk.ac.uos.assignment;
 
 //Class sets all the JSON symbols needed
 public class JSONSymbol {

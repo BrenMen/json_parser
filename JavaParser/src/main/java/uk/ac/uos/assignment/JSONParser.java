@@ -1,4 +1,4 @@
-package uk.ac.uos.parser;
+package src.main.java.uk.ac.uos.assignment;
 
 import java.util.HashMap;
 import java.util.ArrayList;
