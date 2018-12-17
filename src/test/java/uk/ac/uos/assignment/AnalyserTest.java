@@ -1,13 +1,13 @@
-package src.test.java.uk.ac.uos.assignment;
+package uk.ac.uos.assignment;
 
 import java.io.IOException;
 import java.io.StringReader;
 import org.junit.Before;
 import org.junit.Test;
 
-import uk.ac.uos.parser.CustomException;
-import uk.ac.uos.parser.JSONAnalyser;
-import uk.ac.uos.parser.JSONSymbol;
+import uk.ac.uos.assignment.CustomException;
+import uk.ac.uos.assignment.JSONAnalyser;
+import uk.ac.uos.assignment.JSONSymbol;
 
 import static org.junit.Assert.*;
 

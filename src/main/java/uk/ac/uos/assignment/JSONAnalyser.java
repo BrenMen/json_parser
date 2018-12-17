@@ -1,4 +1,4 @@
-package src.main.java.uk.ac.uos.assignment;
+package uk.ac.uos.assignment;
 
 import java.io.StringReader;
 

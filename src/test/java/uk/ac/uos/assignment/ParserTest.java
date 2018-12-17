@@ -1,4 +1,4 @@
-package src.test.java.uk.ac.uos.assignment;
+package uk.ac.uos.assignment;
 
 import static org.junit.Assert.*;
 
@@ -9,11 +9,11 @@ import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 
-import uk.ac.uos.parser.CustomException;
-import uk.ac.uos.parser.JSONArray;
-import uk.ac.uos.parser.JSONObject;
-import uk.ac.uos.parser.JSONParser;
-import uk.ac.uos.parser.JSONSymbol;
+import uk.ac.uos.assignment.CustomException;
+import uk.ac.uos.assignment.JSONArray;
+import uk.ac.uos.assignment.JSONObject;
+import uk.ac.uos.assignment.JSONParser;
+import uk.ac.uos.assignment.JSONSymbol;
 
 public class ParserTest {
 	
