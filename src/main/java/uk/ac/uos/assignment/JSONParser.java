@@ -13,7 +13,7 @@ public class JSONParser {
 	// Including my Object class so I can initialise the JSON objects here.
 	public JSONObject mainObject;
 
-	public void Parse(String Text) throws CustomException, IOException {
+	public void parse(String Text) throws CustomException, IOException {
 
 		// Collecting the first symbol
 		Analyser = new JSONAnalyser(new StringReader(Text));

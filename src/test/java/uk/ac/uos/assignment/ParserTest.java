@@ -122,26 +122,26 @@ public class ParserTest {
 	
 	@Test
 	public void parsingEmptyObjectTest() throws IOException, CustomException {
-		Parser.Parse("{}");
-		assertEquals(new HashMap<String,Object>(), Parser.mainObject.JSONObjectContents);
+		Parser.parse("{}");
+		assertEquals(new HashMap<String,Object>(), Parser.mainObject.thisObjectContents);
 	}
 	
 	@Test
 	public void parsingEmptyObjectWithNewlineTest() throws IOException, CustomException {
-		Parser.Parse("{\n}");
-		assertEquals(new HashMap<String,Object>(), Parser.mainObject.JSONObjectContents);
+		Parser.parse("{\n}");
+		assertEquals(new HashMap<String,Object>(), Parser.mainObject.thisObjectContents);
 	}
 	
 	@Test
 	public void parsingEmptyObjectWithTabTest() throws IOException, CustomException {
-		Parser.Parse("{\t}");
-		assertEquals(new HashMap<String,Object>(), Parser.mainObject.JSONObjectContents);
+		Parser.parse("{\t}");
+		assertEquals(new HashMap<String,Object>(), Parser.mainObject.thisObjectContents);
 	}
 	
 	@Test
 	public void parsingEmptyObjectWithSpaceTest() throws IOException, CustomException {
-		Parser.Parse("{ }");
-		assertEquals(new HashMap<String,Object>(), Parser.mainObject.JSONObjectContents);
+		Parser.parse("{ }");
+		assertEquals(new HashMap<String,Object>(), Parser.mainObject.thisObjectContents);
 	}
 	
 	@Test
@@ -152,7 +152,7 @@ public class ParserTest {
 		symbolsList.add(symbolOne);
 		symbolsList.add(symbolTwo);
 		JSONArray firstArray = Parser.parseArray(symbolsList);
-		assertEquals(0, firstArray.JSONArrayContents.size());
+		assertEquals(0, firstArray.thisArrayContents.size());
 	}
 
 	@Test
@@ -164,7 +164,7 @@ public class ParserTest {
 		symbolsList.add(symbol2);
 		
 		JSONObject firstObject = Parser.parseObject(symbolsList);
-		assertEquals(0, firstObject.JSONObjectContents.size());
+		assertEquals(0, firstObject.thisObjectContents.size());
 	}
 	
 	@Test
@@ -180,9 +180,9 @@ public class ParserTest {
 		symbolsList.add(symbol4);
 		
 		JSONArray firstArray = Parser.parseArray(symbolsList);
-		assertEquals(1, firstArray.JSONArrayContents.size());
-		JSONArray secondArray = (JSONArray) firstArray.JSONArrayContents.get(0);
-		assertEquals(0, secondArray.JSONArrayContents.size());
+		assertEquals(1, firstArray.thisArrayContents.size());
+		JSONArray secondArray = (JSONArray) firstArray.thisArrayContents.get(0);
+		assertEquals(0, secondArray.thisArrayContents.size());
 	}
 	
 	@Test
@@ -204,10 +204,10 @@ public class ParserTest {
 		symbolsList.add(symbolSeven);
 		
 		JSONArray firstArray = Parser.parseArray(symbolsList);
-		assertEquals(1, firstArray.JSONArrayContents.size());
-		JSONObject firstObject = (JSONObject) firstArray.JSONArrayContents.get(0);
-		assertEquals(1, firstObject.JSONObjectContents.size());
-		assertEquals(false, firstObject.JSONObjectContents.get("Oh lookie there, a String"));
+		assertEquals(1, firstArray.thisArrayContents.size());
+		JSONObject firstObject = (JSONObject) firstArray.thisArrayContents.get(0);
+		assertEquals(1, firstObject.thisObjectContents.size());
+		assertEquals(false, firstObject.thisObjectContents.get("Oh lookie there, a String"));
 	}
 	
 	@Test
@@ -225,9 +225,9 @@ public class ParserTest {
 		symbolsList.add(symbol5);
 
 		JSONArray firstArray = Parser.parseArray(symbolsList);
-		assertEquals(1, firstArray.JSONArrayContents.size());
-		JSONArray secondArray = (JSONArray) firstArray.JSONArrayContents.get(0);
-		assertEquals(1, secondArray.JSONArrayContents.size());
+		assertEquals(1, firstArray.thisArrayContents.size());
+		JSONArray secondArray = (JSONArray) firstArray.thisArrayContents.get(0);
+		assertEquals(1, secondArray.thisArrayContents.size());
 	}
 	
 	@Test
@@ -249,9 +249,9 @@ public class ParserTest {
 		symbolsList.add(symbol7);
 		
 		JSONArray firstArray = Parser.parseArray(symbolsList);
-		assertEquals(1, firstArray.JSONArrayContents.size());
-		JSONArray secondArray = (JSONArray) firstArray.JSONArrayContents.get(0);
-		assertEquals(2, secondArray.JSONArrayContents.size());
+		assertEquals(1, firstArray.thisArrayContents.size());
+		JSONArray secondArray = (JSONArray) firstArray.thisArrayContents.get(0);
+		assertEquals(2, secondArray.thisArrayContents.size());
 	}
 	
 	@Test
@@ -277,12 +277,12 @@ public class ParserTest {
 		symbolsList.add(symbol9);
 		
 		JSONArray firstArray = Parser.parseArray(symbolsList);
-		assertEquals(2, firstArray.JSONArrayContents.size());
-		JSONArray secondArray = (JSONArray) firstArray.JSONArrayContents.get(0);
-		assertEquals(2, secondArray.JSONArrayContents.size());
-		assertEquals(true, secondArray.JSONArrayContents.get(0));
-		assertEquals(false, secondArray.JSONArrayContents.get(1));
-		assertEquals(null, firstArray.JSONArrayContents.get(1));
+		assertEquals(2, firstArray.thisArrayContents.size());
+		JSONArray secondArray = (JSONArray) firstArray.thisArrayContents.get(0);
+		assertEquals(2, secondArray.thisArrayContents.size());
+		assertEquals(true, secondArray.thisArrayContents.get(0));
+		assertEquals(false, secondArray.thisArrayContents.get(1));
+		assertEquals(null, firstArray.thisArrayContents.get(1));
 	}
 	
 	@Test
@@ -295,8 +295,8 @@ public class ParserTest {
 		symbolsList.add(symbolTwo);
 		symbolsList.add(symbolThree);
 		JSONArray firstArray = Parser.parseArray(symbolsList);
-		assertEquals(1, firstArray.JSONArrayContents.size());
-		assertEquals(null, firstArray.JSONArrayContents.get(0));
+		assertEquals(1, firstArray.thisArrayContents.size());
+		assertEquals(null, firstArray.thisArrayContents.get(0));
 	}
 	
 	@Test
@@ -309,8 +309,8 @@ public class ParserTest {
 		symbolsList.add(symbolTwo);
 		symbolsList.add(symbolThree);
 		JSONArray firstArray = Parser.parseArray(symbolsList);
-		assertEquals(1, firstArray.JSONArrayContents.size());
-		assertEquals(true, firstArray.JSONArrayContents.get(0));
+		assertEquals(1, firstArray.thisArrayContents.size());
+		assertEquals(true, firstArray.thisArrayContents.get(0));
 	}
 	
 	@Test
@@ -323,8 +323,8 @@ public class ParserTest {
 		symbolsList.add(symbolTwo);
 		symbolsList.add(symbolThree);
 		JSONArray firstArray = Parser.parseArray(symbolsList);
-		assertEquals(1, firstArray.JSONArrayContents.size());
-		assertEquals(false, firstArray.JSONArrayContents.get(0));
+		assertEquals(1, firstArray.thisArrayContents.size());
+		assertEquals(false, firstArray.thisArrayContents.get(0));
 	}
 	
 	@Test
@@ -337,8 +337,8 @@ public class ParserTest {
 		symbolsList.add(symbolTwo);
 		symbolsList.add(symbolThree);
 		JSONArray firstArray = Parser.parseArray(symbolsList);
-		assertEquals(1, firstArray.JSONArrayContents.size());
-		assertEquals((long) 5239, firstArray.JSONArrayContents.get(0));
+		assertEquals(1, firstArray.thisArrayContents.size());
+		assertEquals((long) 5239, firstArray.thisArrayContents.get(0));
 	}
 	
 	@Test
@@ -351,8 +351,8 @@ public class ParserTest {
 		symbolsList.add(symbolTwo);
 		symbolsList.add(symbolThree);
 		JSONArray firstArray = Parser.parseArray(symbolsList);
-		assertEquals(1, firstArray.JSONArrayContents.size());
-		assertEquals((double) 52.39, firstArray.JSONArrayContents.get(0));
+		assertEquals(1, firstArray.thisArrayContents.size());
+		assertEquals((double) 52.39, firstArray.thisArrayContents.get(0));
 	}
 	
 	@Test
@@ -365,8 +365,8 @@ public class ParserTest {
 		symbolsList.add(symbolTwo);
 		symbolsList.add(symbolThree);
 		JSONArray firstArray = Parser.parseArray(symbolsList);
-		assertEquals(1, firstArray.JSONArrayContents.size());
-		assertEquals("This is a String", firstArray.JSONArrayContents.get(0));
+		assertEquals(1, firstArray.thisArrayContents.size());
+		assertEquals("This is a String", firstArray.thisArrayContents.get(0));
 	}
 	
 	@Test
@@ -384,9 +384,9 @@ public class ParserTest {
 		symbolsList.add(symbol5);
 		
 		JSONArray firstArray = Parser.parseArray(symbolsList);
-		assertEquals(2, firstArray.JSONArrayContents.size());
-		assertEquals((double) 54.267, firstArray.JSONArrayContents.get(0));
-		assertEquals("Hey, another String", firstArray.JSONArrayContents.get(1));
+		assertEquals(2, firstArray.thisArrayContents.size());
+		assertEquals((double) 54.267, firstArray.thisArrayContents.get(0));
+		assertEquals("Hey, another String", firstArray.thisArrayContents.get(1));
 	}
 	
 	@Test
@@ -420,13 +420,13 @@ public class ParserTest {
 		symbolsList.add(symbol13);
 		
 		JSONArray firstArray = Parser.parseArray(symbolsList);
-		assertEquals(6, firstArray.JSONArrayContents.size());
-		assertEquals(null, firstArray.JSONArrayContents.get(0));
-		assertEquals(true, firstArray.JSONArrayContents.get(1));
-		assertEquals(false, firstArray.JSONArrayContents.get(2));
-		assertEquals((long) 9872, firstArray.JSONArrayContents.get(3));
-		assertEquals(9.872, firstArray.JSONArrayContents.get(4));
-		assertEquals("This should be a String", firstArray.JSONArrayContents.get(5));
+		assertEquals(6, firstArray.thisArrayContents.size());
+		assertEquals(null, firstArray.thisArrayContents.get(0));
+		assertEquals(true, firstArray.thisArrayContents.get(1));
+		assertEquals(false, firstArray.thisArrayContents.get(2));
+		assertEquals((long) 9872, firstArray.thisArrayContents.get(3));
+		assertEquals(9.872, firstArray.thisArrayContents.get(4));
+		assertEquals("This should be a String", firstArray.thisArrayContents.get(5));
 	}
 	
 	@Test
@@ -506,8 +506,8 @@ public class ParserTest {
 		symbolsList.add(symbolFive);
 		
 		JSONObject firstObject = Parser.parseObject(symbolsList);
-		assertEquals(1, firstObject.JSONObjectContents.size());
-		assertEquals(null, firstObject.JSONObjectContents.get(""));
+		assertEquals(1, firstObject.thisObjectContents.size());
+		assertEquals(null, firstObject.thisObjectContents.get(""));
 	}
 	
 	@Test
@@ -525,8 +525,8 @@ public class ParserTest {
 		symbolsList.add(symbolFive);
 		
 		JSONObject firstObject = Parser.parseObject(symbolsList);
-		assertEquals(1, firstObject.JSONObjectContents.size());
-		assertEquals(true, firstObject.JSONObjectContents.get("Hey look, a String"));
+		assertEquals(1, firstObject.thisObjectContents.size());
+		assertEquals(true, firstObject.thisObjectContents.get("Hey look, a String"));
 	}
 
 	@Test
@@ -544,8 +544,8 @@ public class ParserTest {
 		symbolsList.add(symbolFive);
 		
 		JSONObject firstObject = Parser.parseObject(symbolsList);
-		assertEquals(1, firstObject.JSONObjectContents.size());
-		assertEquals("I wanna be a String too!", firstObject.JSONObjectContents.get("Ohhhweee, A brand new String!"));
+		assertEquals(1, firstObject.thisObjectContents.size());
+		assertEquals("I wanna be a String too!", firstObject.thisObjectContents.get("Ohhhweee, A brand new String!"));
 	}
 
 	@Test
@@ -563,8 +563,8 @@ public class ParserTest {
 		symbolsList.add(symbolFive);
 		
 		JSONObject firstObject = Parser.parseObject(symbolsList);
-		assertEquals(1, firstObject.JSONObjectContents.size());
-		assertEquals((long) 3574, firstObject.JSONObjectContents.get("A String? Well would you look at that!"));
+		assertEquals(1, firstObject.thisObjectContents.size());
+		assertEquals((long) 3574, firstObject.thisObjectContents.get("A String? Well would you look at that!"));
 	}
 	
 	@Test
@@ -582,8 +582,8 @@ public class ParserTest {
 		symbolsList.add(symbolFive);
 		
 		JSONObject firstObject = Parser.parseObject(symbolsList);
-		assertEquals(1, firstObject.JSONObjectContents.size());
-		assertEquals((double) 3.574, firstObject.JSONObjectContents.get("Another String? Well would you look at that!"));
+		assertEquals(1, firstObject.thisObjectContents.size());
+		assertEquals((double) 3.574, firstObject.thisObjectContents.get("Another String? Well would you look at that!"));
 	}
 	
 	@Test
@@ -603,9 +603,9 @@ public class ParserTest {
 		symbolsList.add(symbolSix);
 		
 		JSONObject firstObject = Parser.parseObject(symbolsList);
-		assertEquals(1, firstObject.JSONObjectContents.size());
-		JSONArray secondArray = (JSONArray) firstObject.JSONObjectContents.get("One String coming up!");
-		assertEquals(0, secondArray.JSONArrayContents.size());
+		assertEquals(1, firstObject.thisObjectContents.size());
+		JSONArray secondArray = (JSONArray) firstObject.thisObjectContents.get("One String coming up!");
+		assertEquals(0, secondArray.thisArrayContents.size());
 	}
 	
 	@Test
@@ -627,10 +627,10 @@ public class ParserTest {
 		symbolsList.add(symbolSeven);
 		
 		JSONObject firstObject = Parser.parseObject(symbolsList);
-		assertEquals(1, firstObject.JSONObjectContents.size());
-		JSONArray secondArray = (JSONArray) firstObject.JSONObjectContents.get("Another String coming up!");
-		assertEquals(1, secondArray.JSONArrayContents.size());
-		assertEquals((double) 734.727, secondArray.JSONArrayContents.get(0));
+		assertEquals(1, firstObject.thisObjectContents.size());
+		JSONArray secondArray = (JSONArray) firstObject.thisObjectContents.get("Another String coming up!");
+		assertEquals(1, secondArray.thisArrayContents.size());
+		assertEquals((double) 734.727, secondArray.thisArrayContents.get(0));
 	}
 	
 	@Test
@@ -650,9 +650,9 @@ public class ParserTest {
 		symbolsList.add(symbolSix);
 		
 		JSONObject firstObject = Parser.parseObject(symbolsList);
-		assertEquals(1, firstObject.JSONObjectContents.size());
-		JSONObject secondObject = (JSONObject) firstObject.JSONObjectContents.get("Time to try this String");
-		assertEquals(0, secondObject.JSONObjectContents.size());
+		assertEquals(1, firstObject.thisObjectContents.size());
+		JSONObject secondObject = (JSONObject) firstObject.thisObjectContents.get("Time to try this String");
+		assertEquals(0, secondObject.thisObjectContents.size());
 	}
 	
 	@Test
@@ -678,10 +678,10 @@ public class ParserTest {
 		symbolsList.add(symbolNine);
 		
 		JSONObject firstObject = Parser.parseObject(symbolsList);
-		assertEquals(1, firstObject.JSONObjectContents.size());
-		JSONObject secondObject = (JSONObject) firstObject.JSONObjectContents.get("Uno, Duno, String");
-		assertEquals(1, secondObject.JSONObjectContents.size());
-		assertEquals(false, secondObject.JSONObjectContents.get("Tres, Quatre, String"));
+		assertEquals(1, firstObject.thisObjectContents.size());
+		JSONObject secondObject = (JSONObject) firstObject.thisObjectContents.get("Uno, Duno, String");
+		assertEquals(1, secondObject.thisObjectContents.size());
+		assertEquals(false, secondObject.thisObjectContents.get("Tres, Quatre, String"));
 	}
 	
 	@Test

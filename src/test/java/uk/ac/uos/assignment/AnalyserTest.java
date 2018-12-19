@@ -29,42 +29,42 @@ public class AnalyserTest {
 	}
 
 	@Test
-	public void invalidTest() throws IOException, CustomException {
+	public void IncorrectTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("ThisShouldReturnNull"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(null, symbol);
 	}
 
 	@Test
-	public void leftCurlyBracketTest() throws IOException, CustomException {
+	public void correctLeftCurlyBracketTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("{"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.LEFT_CURLY_BRACKET, symbol.type);
 	}
 
 	@Test
-	public void rightCurlyBracketTest() throws IOException, CustomException {
+	public void correctRightCurlyBracketTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("}"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.RIGHT_CURLY_BRACKET, symbol.type);
 	}
 
 	@Test
-	public void leftSquareBracketTest() throws IOException, CustomException {
+	public void correcLeftSquareBracketTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("["));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.LEFT_SQUARE_BRACKET, symbol.type);
 	}
 
 	@Test
-	public void rightSquareBracketTest() throws IOException, CustomException {
+	public void correctRightSquareBracketTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("]"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.RIGHT_SQUARE_BRACKET, symbol.type);
 	}
 	
 	@Test
-	public void twoBracketsTest() throws IOException, CustomException {
+	public void correctTwoBracketsTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("[{"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.LEFT_SQUARE_BRACKET, symbol.type);
@@ -73,42 +73,42 @@ public class AnalyserTest {
 	}
 
 	@Test
-	public void colonTest() throws IOException, CustomException {
+	public void correctColonTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader(":"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.COLON, symbol.type);
 	}
 
 	@Test
-	public void commaTest() throws IOException, CustomException {
+	public void correctCommaTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader(","));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.COMMA, symbol.type);
 	}
 
 	@Test
-	public void spaceTest() throws IOException, CustomException {
+	public void correctSpaceTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader(" "));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.SPACE, symbol.type);
 	}
-
+	
 	@Test
-	public void tabTest() throws IOException, CustomException {
+	public void correctTabTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("	"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.SPACE, symbol.type);
 	}
 
 	@Test
-	public void newLineTest() throws IOException, CustomException {
+	public void correctNewLineTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("\n"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.SPACE, symbol.type);
 	}
 
 	@Test
-	public void colonAfterSpaceTest() throws IOException, CustomException {
+	public void correctColonAfterSpaceTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader(" :"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.SPACE, symbol.type);
@@ -117,7 +117,7 @@ public class AnalyserTest {
 	}
 
 	@Test
-	public void stringTest() throws IOException, CustomException {
+	public void correctStringTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("\"This is a string\""));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.STRING, symbol.type);
@@ -125,7 +125,7 @@ public class AnalyserTest {
 	}
 
 	@Test
-	public void stringWithSymbolTest() throws IOException, CustomException {
+	public void correctStringWithSymbolTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("\"This is a string\", []"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.STRING, symbol.type);
@@ -141,7 +141,7 @@ public class AnalyserTest {
 	}
 
 	@Test
-	public void nullTest() throws IOException, CustomException {
+	public void correctNullTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("null"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.NULL_BOOLEAN, symbol.type);
@@ -193,7 +193,7 @@ public class AnalyserTest {
 	}
 
 	@Test
-	public void trueTest() throws IOException, CustomException {
+	public void correctTrueTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("true"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.TRUE_BOOLEAN, symbol.type);
@@ -245,7 +245,7 @@ public class AnalyserTest {
 	}
 
 	@Test
-	public void falseTest() throws IOException, CustomException {
+	public void correctFalseTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("false"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.FALSE_BOOLEAN, symbol.type);
@@ -312,49 +312,49 @@ public class AnalyserTest {
 	}
 	
 	@Test
-	public void numberDigitTest() throws IOException, CustomException {
+	public void correctNumberDigitTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("5"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.NUMBER, symbol.type);
 	}
 	
 	@Test
-	public void numberMinusTest() throws IOException, CustomException {
+	public void correctNumberMinusTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("-5"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.NUMBER, symbol.type);
 	}
 	
 	@Test
-	public void numberPlusTest() throws IOException, CustomException {
+	public void correctNumberPlusTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("4+4"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.NUMBER, symbol.type);
 	}
 
 	@Test
-	public void numberLowercaseExponentialTest() throws IOException, CustomException {
+	public void correctNumberLowercaseExponentialTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("53e"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.NUMBER, symbol.type);
 	}
 	
 	@Test
-	public void numberUppercaseExponentialTest() throws IOException, CustomException {
+	public void correctNumberUppercaseExponentialTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("53E+2"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.NUMBER, symbol.type);
 	}
 	
 	@Test
-	public void numberDecimalTest() throws IOException, CustomException {
+	public void correctNumberDecimalTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("14.37"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.NUMBER, symbol.type);
 	}
 	
 	@Test
-	public void numberStringBooleanInArrayTest() throws IOException, CustomException {
+	public void correctNumberStringBooleanInArrayTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("[532e-6, \"String\", true]"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.LEFT_SQUARE_BRACKET, symbol.type);
