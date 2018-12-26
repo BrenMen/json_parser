@@ -61,15 +61,17 @@ public class JSONParser {
 
 	// Parsing all Number Symbol Types.
 	public Number parseNumber(JSONSymbol input) throws CustomException {
+		Number result = null;
 		if (JSONSymbol.Type.NUMBER == input.type) {
 			if (input.value.contains(".")) {
-				return Double.parseDouble(input.value);
+				result = Double.parseDouble(input.value);
 			} else {
-				return Long.parseLong(input.value);
+				result =  Long.parseLong(input.value);
 			}
 		} else {
 			throw new CustomException("Error! This is an invalid Number value.");
 		}
+		return result;
 	}
 
 	// Parsing all String Symbol Types.
@@ -103,18 +105,22 @@ public class JSONParser {
 				arrayValueList.add(parseNumber(thisSymbol));
 			} else if (JSONSymbol.Type.STRING == thisSymbol.type) {
 				arrayValueList.add(parseString(thisSymbol));
-			} else if (JSONSymbol.Type.LEFT_CURLY_BRACKET == thisSymbol.type) {
+				
+				// Checking for an embedded Object in the Array.
+			} else if (JSONSymbol.Type.RIGHT_CURLY_BRACKET == thisSymbol.type) {
 				ArrayList<JSONSymbol> objectSymbolsArray = new ArrayList<JSONSymbol>();
-				while (JSONSymbol.Type.RIGHT_CURLY_BRACKET != thisSymbol.type) {
+				while (isEmbedded(JSONSymbol.Type.RIGHT_CURLY_BRACKET, thisSymbol.type)) {
 					i++;
 					objectSymbolsArray.add(thisSymbol);
 					thisSymbol = input.get(i);
 				}
 				objectSymbolsArray.add(thisSymbol);
 				arrayValueList.add(parseObject(objectSymbolsArray));
+				
+				// Checking for an embedded Array in the Array.
 			} else if (JSONSymbol.Type.LEFT_SQUARE_BRACKET == thisSymbol.type) {
 				ArrayList<JSONSymbol> symbolsArray = new ArrayList<JSONSymbol>();
-				while (JSONSymbol.Type.RIGHT_SQUARE_BRACKET != thisSymbol.type) {
+				while (isEmbedded(JSONSymbol.Type.RIGHT_SQUARE_BRACKET, thisSymbol.type)) {
 					i++;
 					symbolsArray.add(thisSymbol);
 					thisSymbol = input.get(i);
@@ -123,11 +129,6 @@ public class JSONParser {
 				arrayValueList.add(parseArray(symbolsArray));
 			} else {
 				throw new CustomException("Error! An Array cannot contain this value.");
-			}
-
-			// Checking for correct comma formatting.
-			if (i != input.size() - 2 && JSONSymbol.Type.COMMA != input.get(i + 1).type) {
-				throw new CustomException("Error! Missing comma value in Array.");
 			}
 		}
 		return new JSONArray(arrayValueList);
@@ -154,18 +155,22 @@ public class JSONParser {
 				hashValueList.add(parseNumber(thisSymbol));
 			} else if (thisSymbol.type == JSONSymbol.Type.STRING) {
 				hashValueList.add(parseString(thisSymbol));
+				
+				// Checking for an embedded Object in the Hash.
 			} else if (thisSymbol.type == JSONSymbol.Type.LEFT_CURLY_BRACKET) {
 				ArrayList<JSONSymbol> objectSymbolsArray = new ArrayList<JSONSymbol>();
-				while (JSONSymbol.Type.RIGHT_CURLY_BRACKET != thisSymbol.type) {
+				while (isEmbedded(JSONSymbol.Type.RIGHT_CURLY_BRACKET, thisSymbol.type)) {
 					i++;
 					objectSymbolsArray.add(thisSymbol);
 					thisSymbol = input.get(i);
 				}
 				objectSymbolsArray.add(thisSymbol);
 				hashValueList.add(parseObject(objectSymbolsArray));
+				
+				// Checking for an embedded Array in the Hash.
 			} else if (thisSymbol.type == JSONSymbol.Type.LEFT_SQUARE_BRACKET) {
 				ArrayList<JSONSymbol> symbolsArray = new ArrayList<JSONSymbol>();
-				while (JSONSymbol.Type.RIGHT_SQUARE_BRACKET != thisSymbol.type) {
+				while (isEmbedded(JSONSymbol.Type.RIGHT_SQUARE_BRACKET, thisSymbol.type)) {
 					i++;
 					symbolsArray.add(thisSymbol);
 					thisSymbol = input.get(i);
@@ -201,18 +206,18 @@ public class JSONParser {
 				hashPair.add(thisKey);
 				hashPair.add(thisColon);
 
-				// Looping through the value if it's an Object.
+				// Checking for an embedded Object in the Object.
 				if (JSONSymbol.Type.LEFT_CURLY_BRACKET == thisValue.type) {
-					while (JSONSymbol.Type.RIGHT_CURLY_BRACKET != thisValue.type) {
+					while (isEmbedded(JSONSymbol.Type.RIGHT_CURLY_BRACKET, thisValue.type)) {
 						i++;
 						hashPair.add(thisValue);
 						thisValue = input.get(i + 2);
 					}
 					hashPair.add(thisValue);
 
-					// Looping through the value if it's an Array.
+					// Checking for an embedded Array in the Object.
 				} else if (JSONSymbol.Type.LEFT_SQUARE_BRACKET == thisValue.type) {
-					while (JSONSymbol.Type.RIGHT_SQUARE_BRACKET != thisValue.type) {
+					while (isEmbedded(JSONSymbol.Type.RIGHT_SQUARE_BRACKET, thisValue.type)) {
 						i++;
 						hashPair.add(thisValue);
 						thisValue = input.get(i + 2);
@@ -220,11 +225,6 @@ public class JSONParser {
 					hashPair.add(thisValue);
 				} else {
 					hashPair.add(thisValue);
-				}
-
-				// Checking for correct comma formatting.
-				if (i != input.size() - 4 && JSONSymbol.Type.COMMA != input.get(i + 3).type) {
-					throw new CustomException("Error! Missing comma value in Object.");
 				}
 				ArrayList<Object> hashParsed = parseHash(hashPair);
 				jsonObject.put((String) hashParsed.get(0), hashParsed.get(1));
@@ -252,5 +252,10 @@ public class JSONParser {
 				|| JSONSymbol.Type.COLON != input.get(1).type) {
 			throw new CustomException("Error! This is an invalid Hash.");
 		}
+	}
+	
+	public boolean isEmbedded(JSONSymbol.Type thisBracket, JSONSymbol.Type thisValue) throws CustomException {
+		boolean result = thisBracket != thisValue ? true : false;
+		return result;
 	}
 }
