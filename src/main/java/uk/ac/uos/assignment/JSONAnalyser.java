@@ -13,16 +13,24 @@ public class JSONAnalyser {
 	// character in the JSON
 	private PushbackReader pushbackReader;
 
-	// Constructor that takes StringReader as its argument
+	/**
+	 * Constructor that takes StringReader as its argument
+	 * @param stringReader
+	 */
 	public JSONAnalyser(StringReader stringReader) {
 		pushbackReader = new PushbackReader(stringReader);
 
 	}
 
+	/**
+	 * Main method of this class. Will read through all characters.
+	 * @return result
+	 * @throws IOException
+	 * @throws CustomException
+	 */
 	public JSONSymbol next() throws IOException, CustomException {
 		JSONSymbol result = null;
 		int position = pushbackReader.read();
-
 		// I used isWhitespace and pushbackReader to check
 		// for consecutive whitespace and return to my initial
 		// position once ended.
@@ -30,13 +38,11 @@ public class JSONAnalyser {
 			if (Character.isWhitespace(position)) {
 				result = buildWhitespace(position, result);
 			}
-
 			// BuildString will check for characters between quotation
 			// marks, and return that string as its symbol.
 			else if (position == '"') {
 				result = buildString(position, result);
 			}
-
 			// These builders will read through the JSON and check if the
 			// characters spell the specific boolean; returning its symbol.
 			else if (position == 'n') {
@@ -46,14 +52,12 @@ public class JSONAnalyser {
 			} else if (position == 'f') {
 				result = buildFalseBoolean(position, result);
 			}
-
 			// This builder will read forward until an invalid character
 			// is found; returning the valid number symbol. A number could
 			// start with either a digit or a - for a negative number.
 			else if (Character.isDigit(position) || position == '-') {
 				result = buildNumber(position, result);
 			}
-
 			// Checking single characters to assign them to relative
 			// symbols types.
 			else if (position == '{') {

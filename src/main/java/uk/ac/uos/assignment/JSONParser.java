@@ -13,12 +13,16 @@ public class JSONParser {
 	// Including my Object class so I can initialise the JSON objects here.
 	public JSONObject mainObject;
 
+	/**
+	 * Main parse method that will run the Parser.
+	 * @param Text
+	 * @throws CustomException
+	 * @throws IOException
+	 */
 	public void parse(String Text) throws CustomException, IOException {
-
 		// Collecting the first symbol
 		Analyser = new JSONAnalyser(new StringReader(Text));
-		JSONSymbol thisSymbol = Analyser.next();
-
+		JSONSymbol thisSymbol = Analyser.next();	
 		// Converting JSON 'Text' into its relative symbol types.
 		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
 		JSONSymbol invalid = null;
@@ -26,7 +30,6 @@ public class JSONParser {
 			symbolsList.add(thisSymbol);
 			thisSymbol = Analyser.next();
 		}
-
 		// Removing whitespace.
 		ArrayList<JSONSymbol> noWhitespaceList = new ArrayList<JSONSymbol>();
 		for (int i = 0; i < symbolsList.size(); i++) {
@@ -39,7 +42,12 @@ public class JSONParser {
 		mainObject = parseObject(symbolsList);
 	}
 
-	// Parsing all Null Symbol Types.
+	/**
+	 * Parsing all Null Symbol Types.
+	 * @param input
+	 * @return null
+	 * @throws CustomException
+	 */
 	public Object parseNull(JSONSymbol input) throws CustomException {
 		if (JSONSymbol.Type.NULL_BOOLEAN == input.type) {
 			return null;
@@ -48,7 +56,12 @@ public class JSONParser {
 		}
 	}
 
-	// Parsing all Boolean Symbol Types.
+	/**
+	 * Parsing all Boolean Symbol Types.
+	 * @param input
+	 * @return boolean
+	 * @throws CustomException
+	 */
 	public boolean parseBoolean(JSONSymbol input) throws CustomException {
 		if (JSONSymbol.Type.TRUE_BOOLEAN == input.type) {
 			return true;
@@ -59,7 +72,12 @@ public class JSONParser {
 		}
 	}
 
-	// Parsing all Number Symbol Types.
+	/**
+	 * Parsing all Number Symbol Types.
+	 * @param input
+	 * @return number
+	 * @throws CustomException
+	 */
 	public Number parseNumber(JSONSymbol input) throws CustomException {
 		Number result = null;
 		if (JSONSymbol.Type.NUMBER == input.type) {
@@ -74,7 +92,12 @@ public class JSONParser {
 		return result;
 	}
 
-	// Parsing all String Symbol Types.
+	/**
+	 * Parsing all String Symbol Types.
+	 * @param input
+	 * @return string
+	 * @throws CustomException
+	 */
 	public String parseString(JSONSymbol input) throws CustomException {
 		String stringResult = null;
 		if (JSONSymbol.Type.STRING != input.type) {
@@ -85,13 +108,16 @@ public class JSONParser {
 		return stringResult;
 	}
 
-	// Parsing all Symbol Types that are within an Array.
+	/**
+	 * Parsing all Symbol Types that are within an Array.
+	 * @param input
+	 * @return JSONArray
+	 * @throws CustomException
+	 */
 	public JSONArray parseArray(ArrayList<JSONSymbol> input) throws CustomException {
 		ArrayList<Object> arrayValueList = new ArrayList<Object>();
-
 		// Checking for valid Array.
 		isValidArray(input);
-
 		// Assigning Symbol types to each value in an Array.
 		for (int i = 1; i < input.size() - 1; i = i + 2) {
 			JSONSymbol thisSymbol = input.get(i);
@@ -105,7 +131,6 @@ public class JSONParser {
 				arrayValueList.add(parseNumber(thisSymbol));
 			} else if (JSONSymbol.Type.STRING == thisSymbol.type) {
 				arrayValueList.add(parseString(thisSymbol));
-				
 				// Checking for an embedded Object in the Array.
 			} else if (JSONSymbol.Type.RIGHT_CURLY_BRACKET == thisSymbol.type) {
 				ArrayList<JSONSymbol> objectSymbolsArray = new ArrayList<JSONSymbol>();
@@ -116,7 +141,6 @@ public class JSONParser {
 				}
 				objectSymbolsArray.add(thisSymbol);
 				arrayValueList.add(parseObject(objectSymbolsArray));
-				
 				// Checking for an embedded Array in the Array.
 			} else if (JSONSymbol.Type.LEFT_SQUARE_BRACKET == thisSymbol.type) {
 				ArrayList<JSONSymbol> symbolsArray = new ArrayList<JSONSymbol>();
@@ -134,13 +158,16 @@ public class JSONParser {
 		return new JSONArray(arrayValueList);
 	}
 
-	// Parsing all Symbol Types that are within a Hash.
+	/**
+	 * Parsing all Symbol Types that are within a Hash.
+	 * @param input
+	 * @return ArrayList
+	 * @throws CustomException
+	 */
 	public ArrayList<Object> parseHash(ArrayList<JSONSymbol> input) throws CustomException {
 		ArrayList<Object> hashValueList = new ArrayList<Object>();
-
 		// Checking for valid Hash.
 		isValidHash(input);
-
 		// Assigning Symbol types to each value in an Array.
 		hashValueList.add(input.get(0).value);
 		for (int i = 2; i < input.size(); i++) {
@@ -155,7 +182,6 @@ public class JSONParser {
 				hashValueList.add(parseNumber(thisSymbol));
 			} else if (thisSymbol.type == JSONSymbol.Type.STRING) {
 				hashValueList.add(parseString(thisSymbol));
-				
 				// Checking for an embedded Object in the Hash.
 			} else if (thisSymbol.type == JSONSymbol.Type.LEFT_CURLY_BRACKET) {
 				ArrayList<JSONSymbol> objectSymbolsArray = new ArrayList<JSONSymbol>();
@@ -166,7 +192,6 @@ public class JSONParser {
 				}
 				objectSymbolsArray.add(thisSymbol);
 				hashValueList.add(parseObject(objectSymbolsArray));
-				
 				// Checking for an embedded Array in the Hash.
 			} else if (thisSymbol.type == JSONSymbol.Type.LEFT_SQUARE_BRACKET) {
 				ArrayList<JSONSymbol> symbolsArray = new ArrayList<JSONSymbol>();
@@ -184,28 +209,28 @@ public class JSONParser {
 		return hashValueList;
 	}
 
+	/**
+	 * Parsing all Symbol Types that are within an Object.
+	 * @param input
+	 * @return HashMap
+	 * @throws CustomException
+	 */
 	public JSONObject parseObject(ArrayList<JSONSymbol> input) throws CustomException {
 		HashMap<String, Object> jsonObject = new HashMap<String, Object>();
-
 		// Checking for valid Object.
 		isValidObject(input);
-
 		// Assigning Key, Colon and Value depending on their position in the Object.
 		if (input.size() >= 5) {
 			for (int i = 1; i < input.size() - 3; i = i + 4) {
-
 				// Collecting position of key.
 				JSONSymbol thisKey = input.get(i);
-
 				// Collecting position of Colon.
 				JSONSymbol thisColon = input.get(i + 1);
-
 				// Collecting position of Value
 				JSONSymbol thisValue = input.get(i + 2);
 				ArrayList<JSONSymbol> hashPair = new ArrayList<JSONSymbol>();
 				hashPair.add(thisKey);
 				hashPair.add(thisColon);
-
 				// Checking for an embedded Object in the Object.
 				if (JSONSymbol.Type.LEFT_CURLY_BRACKET == thisValue.type) {
 					while (isEmbedded(JSONSymbol.Type.RIGHT_CURLY_BRACKET, thisValue.type)) {
@@ -214,7 +239,6 @@ public class JSONParser {
 						thisValue = input.get(i + 2);
 					}
 					hashPair.add(thisValue);
-
 					// Checking for an embedded Array in the Object.
 				} else if (JSONSymbol.Type.LEFT_SQUARE_BRACKET == thisValue.type) {
 					while (isEmbedded(JSONSymbol.Type.RIGHT_SQUARE_BRACKET, thisValue.type)) {
