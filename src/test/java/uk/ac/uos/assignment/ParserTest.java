@@ -2,9 +2,10 @@ package uk.ac.uos.assignment;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.io.IOException;
+
 
 import org.junit.Before;
 import org.junit.Test;
@@ -157,11 +158,11 @@ public class ParserTest {
 
 	@Test
 	public void parsingCorrectEmptyObjectTest() throws CustomException {
-		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.LEFT_CURLY_BRACKET);
-		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.RIGHT_CURLY_BRACKET);
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.LEFT_CURLY_BRACKET);
+		JSONSymbol symbolTwo = new JSONSymbol(JSONSymbol.Type.RIGHT_CURLY_BRACKET);
 		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
-		symbolsList.add(symbol1);
-		symbolsList.add(symbol2);
+		symbolsList.add(symbolOne);
+		symbolsList.add(symbolTwo);
 		
 		JSONObject firstObject = Parser.parseObject(symbolsList);
 		assertEquals(0, firstObject.thisObjectContents.size());
@@ -169,15 +170,15 @@ public class ParserTest {
 	
 	@Test
 	public void parsingCorrectArrayContainingArrayTest() throws CustomException { 
-		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
-		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
-		JSONSymbol symbol3 = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
-		JSONSymbol symbol4 = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
+		JSONSymbol symbolTwo = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
+		JSONSymbol symbolThree = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
+		JSONSymbol symbolFour = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
 		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
-		symbolsList.add(symbol1);
-		symbolsList.add(symbol2);
-		symbolsList.add(symbol3);
-		symbolsList.add(symbol4);
+		symbolsList.add(symbolOne);
+		symbolsList.add(symbolTwo);
+		symbolsList.add(symbolThree);
+		symbolsList.add(symbolFour);
 		
 		JSONArray firstArray = Parser.parseArray(symbolsList);
 		assertEquals(1, firstArray.thisArrayContents.size());
@@ -212,17 +213,17 @@ public class ParserTest {
 	
 	@Test
 	public void parsingCorrectArrayContainingArrayWithTrueTest() throws CustomException { 
-		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
-		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
-		JSONSymbol symbol3 = new JSONSymbol(JSONSymbol.Type.TRUE_BOOLEAN);
-		JSONSymbol symbol4 = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
-		JSONSymbol symbol5 = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
+		JSONSymbol symbolTwo = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
+		JSONSymbol symbolThree = new JSONSymbol(JSONSymbol.Type.TRUE_BOOLEAN);
+		JSONSymbol symbolFour = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
+		JSONSymbol symbolFive = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
 		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
-		symbolsList.add(symbol1);
-		symbolsList.add(symbol2);
-		symbolsList.add(symbol3);
-		symbolsList.add(symbol4);
-		symbolsList.add(symbol5);
+		symbolsList.add(symbolOne);
+		symbolsList.add(symbolTwo);
+		symbolsList.add(symbolThree);
+		symbolsList.add(symbolFour);
+		symbolsList.add(symbolFive);
 
 		JSONArray firstArray = Parser.parseArray(symbolsList);
 		assertEquals(1, firstArray.thisArrayContents.size());
@@ -232,21 +233,21 @@ public class ParserTest {
 	
 	@Test
 	public void parsingCorrectArrayContainingArrayWithTwoNumbersTest() throws CustomException { 
-		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
-		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
-		JSONSymbol symbol3 = new JSONSymbol(JSONSymbol.Type.NUMBER, "63749");
-		JSONSymbol symbol4 = new JSONSymbol(JSONSymbol.Type.COMMA);
-		JSONSymbol symbol5 = new JSONSymbol(JSONSymbol.Type.NUMBER, "637.49");
-		JSONSymbol symbol6 = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
-		JSONSymbol symbol7 = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
+		JSONSymbol symbolTwo = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
+		JSONSymbol symbolThree = new JSONSymbol(JSONSymbol.Type.NUMBER, "63749");
+		JSONSymbol symbolFour = new JSONSymbol(JSONSymbol.Type.COMMA);
+		JSONSymbol symbolFive = new JSONSymbol(JSONSymbol.Type.NUMBER, "637.49");
+		JSONSymbol symbolSix = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
+		JSONSymbol symbolSeven = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
 		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
-		symbolsList.add(symbol1);
-		symbolsList.add(symbol2);
-		symbolsList.add(symbol3);
-		symbolsList.add(symbol4);
-		symbolsList.add(symbol5);
-		symbolsList.add(symbol6);
-		symbolsList.add(symbol7);
+		symbolsList.add(symbolOne);
+		symbolsList.add(symbolTwo);
+		symbolsList.add(symbolThree);
+		symbolsList.add(symbolFour);
+		symbolsList.add(symbolFive);
+		symbolsList.add(symbolSix);
+		symbolsList.add(symbolSeven);
 		
 		JSONArray firstArray = Parser.parseArray(symbolsList);
 		assertEquals(1, firstArray.thisArrayContents.size());
@@ -256,25 +257,25 @@ public class ParserTest {
 	
 	@Test
 	public void parsingCorrectArrayWithNullBooleanContainingArrayWithTwoBooleansTest() throws CustomException { 
-		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
-		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
-		JSONSymbol symbol3 = new JSONSymbol(JSONSymbol.Type.TRUE_BOOLEAN);
-		JSONSymbol symbol4 = new JSONSymbol(JSONSymbol.Type.COMMA);
-		JSONSymbol symbol5 = new JSONSymbol(JSONSymbol.Type.FALSE_BOOLEAN);
-		JSONSymbol symbol6 = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
-		JSONSymbol symbol7 = new JSONSymbol(JSONSymbol.Type.COMMA);
-		JSONSymbol symbol8 = new JSONSymbol(JSONSymbol.Type.NULL_BOOLEAN);
-		JSONSymbol symbol9 = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
+		JSONSymbol symbolTwo = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
+		JSONSymbol symbolThree = new JSONSymbol(JSONSymbol.Type.TRUE_BOOLEAN);
+		JSONSymbol symbolFour = new JSONSymbol(JSONSymbol.Type.COMMA);
+		JSONSymbol symbolFive = new JSONSymbol(JSONSymbol.Type.FALSE_BOOLEAN);
+		JSONSymbol symbolSix = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
+		JSONSymbol symbolSeven = new JSONSymbol(JSONSymbol.Type.COMMA);
+		JSONSymbol symbolEight = new JSONSymbol(JSONSymbol.Type.NULL_BOOLEAN);
+		JSONSymbol symbolNine = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
 		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
-		symbolsList.add(symbol1);
-		symbolsList.add(symbol2);
-		symbolsList.add(symbol3);
-		symbolsList.add(symbol4);
-		symbolsList.add(symbol5);
-		symbolsList.add(symbol6);
-		symbolsList.add(symbol7);
-		symbolsList.add(symbol8);
-		symbolsList.add(symbol9);
+		symbolsList.add(symbolOne);
+		symbolsList.add(symbolTwo);
+		symbolsList.add(symbolThree);
+		symbolsList.add(symbolFour);
+		symbolsList.add(symbolFive);
+		symbolsList.add(symbolSix);
+		symbolsList.add(symbolSeven);
+		symbolsList.add(symbolEight);
+		symbolsList.add(symbolNine);
 		
 		JSONArray firstArray = Parser.parseArray(symbolsList);
 		assertEquals(2, firstArray.thisArrayContents.size());
@@ -371,17 +372,17 @@ public class ParserTest {
 	
 	@Test
 	public void parsingCorrectArrayWithTwoSymbolTypesTest() throws CustomException {
-		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
-		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.NUMBER, "54.267");
-		JSONSymbol symbol3 = new JSONSymbol(JSONSymbol.Type.COMMA);
-		JSONSymbol symbol4 = new JSONSymbol(JSONSymbol.Type.STRING, "Hey, another String");
-		JSONSymbol symbol5 = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
+		JSONSymbol symbolTwo = new JSONSymbol(JSONSymbol.Type.NUMBER, "54.267");
+		JSONSymbol symbolThree = new JSONSymbol(JSONSymbol.Type.COMMA);
+		JSONSymbol symbolFour = new JSONSymbol(JSONSymbol.Type.STRING, "Hey, another String");
+		JSONSymbol symbolFive = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
 		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
-		symbolsList.add(symbol1);
-		symbolsList.add(symbol2);
-		symbolsList.add(symbol3);
-		symbolsList.add(symbol4);
-		symbolsList.add(symbol5);
+		symbolsList.add(symbolOne);
+		symbolsList.add(symbolTwo);
+		symbolsList.add(symbolThree);
+		symbolsList.add(symbolFour);
+		symbolsList.add(symbolFive);
 		
 		JSONArray firstArray = Parser.parseArray(symbolsList);
 		assertEquals(2, firstArray.thisArrayContents.size());
@@ -391,33 +392,33 @@ public class ParserTest {
 	
 	@Test
 	public void parsingCorrectArrayWithAllSymbolTypesTest() throws CustomException {
-		JSONSymbol symbol1 = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
-		JSONSymbol symbol2 = new JSONSymbol(JSONSymbol.Type.NULL_BOOLEAN);
-		JSONSymbol symbol3 = new JSONSymbol(JSONSymbol.Type.COMMA);
-		JSONSymbol symbol4 = new JSONSymbol(JSONSymbol.Type.TRUE_BOOLEAN);
-		JSONSymbol symbol5 = new JSONSymbol(JSONSymbol.Type.COMMA);
-		JSONSymbol symbol6 = new JSONSymbol(JSONSymbol.Type.FALSE_BOOLEAN);
-		JSONSymbol symbol7 = new JSONSymbol(JSONSymbol.Type.COMMA);
-		JSONSymbol symbol8 = new JSONSymbol(JSONSymbol.Type.NUMBER, "9872");
-		JSONSymbol symbol9 = new JSONSymbol(JSONSymbol.Type.COMMA);
-		JSONSymbol symbol10 = new JSONSymbol(JSONSymbol.Type.NUMBER, "9.872");
-		JSONSymbol symbol11 = new JSONSymbol(JSONSymbol.Type.COMMA);
-		JSONSymbol symbol12 = new JSONSymbol(JSONSymbol.Type.STRING, "This should be a String");
-		JSONSymbol symbol13 = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
+		JSONSymbol symbolOne = new JSONSymbol(JSONSymbol.Type.LEFT_SQUARE_BRACKET);
+		JSONSymbol symbolTwo = new JSONSymbol(JSONSymbol.Type.NULL_BOOLEAN);
+		JSONSymbol symbolThree = new JSONSymbol(JSONSymbol.Type.COMMA);
+		JSONSymbol symbolFour = new JSONSymbol(JSONSymbol.Type.TRUE_BOOLEAN);
+		JSONSymbol symbolFive = new JSONSymbol(JSONSymbol.Type.COMMA);
+		JSONSymbol symbolSix = new JSONSymbol(JSONSymbol.Type.FALSE_BOOLEAN);
+		JSONSymbol symbolSeven = new JSONSymbol(JSONSymbol.Type.COMMA);
+		JSONSymbol symbolEight = new JSONSymbol(JSONSymbol.Type.NUMBER, "9872");
+		JSONSymbol symbolNine = new JSONSymbol(JSONSymbol.Type.COMMA);
+		JSONSymbol symbolTen = new JSONSymbol(JSONSymbol.Type.NUMBER, "9.872");
+		JSONSymbol symbolEleven = new JSONSymbol(JSONSymbol.Type.COMMA);
+		JSONSymbol symbolTwelve = new JSONSymbol(JSONSymbol.Type.STRING, "This should be a String");
+		JSONSymbol symbolThirteen = new JSONSymbol(JSONSymbol.Type.RIGHT_SQUARE_BRACKET);
 		ArrayList<JSONSymbol> symbolsList = new ArrayList<JSONSymbol>();
-		symbolsList.add(symbol1);
-		symbolsList.add(symbol2);
-		symbolsList.add(symbol3);
-		symbolsList.add(symbol4);
-		symbolsList.add(symbol5);
-		symbolsList.add(symbol6);
-		symbolsList.add(symbol7);
-		symbolsList.add(symbol8);
-		symbolsList.add(symbol9);
-		symbolsList.add(symbol10);
-		symbolsList.add(symbol11);
-		symbolsList.add(symbol12);
-		symbolsList.add(symbol13);
+		symbolsList.add(symbolOne);
+		symbolsList.add(symbolTwo);
+		symbolsList.add(symbolThree);
+		symbolsList.add(symbolFour);
+		symbolsList.add(symbolFive);
+		symbolsList.add(symbolSix);
+		symbolsList.add(symbolSeven);
+		symbolsList.add(symbolEight);
+		symbolsList.add(symbolNine);
+		symbolsList.add(symbolTen);
+		symbolsList.add(symbolEleven);
+		symbolsList.add(symbolTwelve);
+		symbolsList.add(symbolThirteen);
 		
 		JSONArray firstArray = Parser.parseArray(symbolsList);
 		assertEquals(6, firstArray.thisArrayContents.size());

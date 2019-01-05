@@ -11,26 +11,28 @@ public class JSONAnalyser {
 	// PushbackReader used to move my position forward and
 	// back whenever I decided to read ahead more than one
 	// character in the JSON
-	private PushbackReader pushbackReader;
+	private PushbackReader reader;
 
 	/**
 	 * Constructor that takes StringReader as its argument
-	 * @param stringReader
+	 * 
+	 * @param inputString
 	 */
-	public JSONAnalyser(StringReader stringReader) {
-		pushbackReader = new PushbackReader(stringReader);
+	public JSONAnalyser(StringReader inputString) {
+		reader = new PushbackReader(inputString);
 
 	}
 
 	/**
 	 * Main method of this class. Will read through all characters.
+	 * 
 	 * @return result
 	 * @throws IOException
 	 * @throws CustomException
 	 */
 	public JSONSymbol next() throws IOException, CustomException {
 		JSONSymbol result = null;
-		int position = pushbackReader.read();
+		int position = reader.read();
 		// I used isWhitespace and pushbackReader to check
 		// for consecutive whitespace and return to my initial
 		// position once ended.
@@ -80,9 +82,9 @@ public class JSONAnalyser {
 	// Builder for whitespace
 	public JSONSymbol buildWhitespace(int position, JSONSymbol result) throws IOException, CustomException {
 		while (Character.isWhitespace(position)) {
-			position = pushbackReader.read();
+			position = reader.read();
 			result = new JSONSymbol(JSONSymbol.Type.SPACE);
-			pushbackReader.unread(position);
+			reader.unread(position);
 		}
 		return result;
 	}
@@ -90,10 +92,10 @@ public class JSONAnalyser {
 	// Builder for a string
 	public JSONSymbol buildString(int position, JSONSymbol result) throws IOException, CustomException {
 		String finalString = "";
-		position = pushbackReader.read();
+		position = reader.read();
 		while (position != '"') {
 			finalString += (char) position;
-			position = pushbackReader.read();
+			position = reader.read();
 		}
 		result = new JSONSymbol(JSONSymbol.Type.STRING, finalString);
 		return result;
@@ -102,11 +104,11 @@ public class JSONAnalyser {
 
 	// Builder for a null boolean
 	public JSONSymbol buildNullBoolean(int position, JSONSymbol result) throws IOException, CustomException {
-		position = pushbackReader.read();
+		position = reader.read();
 		if (position == 'u') {
-			position = pushbackReader.read();
+			position = reader.read();
 			if (position == 'l') {
-				position = pushbackReader.read();
+				position = reader.read();
 				if (position == 'l') {
 					result = new JSONSymbol(JSONSymbol.Type.NULL_BOOLEAN);
 				} else {
@@ -123,11 +125,11 @@ public class JSONAnalyser {
 
 	// Builder for a true boolean
 	public JSONSymbol buildTrueBoolean(int position, JSONSymbol result) throws IOException, CustomException {
-		position = pushbackReader.read();
+		position = reader.read();
 		if (position == 'r') {
-			position = pushbackReader.read();
+			position = reader.read();
 			if (position == 'u') {
-				position = pushbackReader.read();
+				position = reader.read();
 				if (position == 'e') {
 					result = new JSONSymbol(JSONSymbol.Type.TRUE_BOOLEAN);
 				} else {
@@ -144,13 +146,13 @@ public class JSONAnalyser {
 
 	// Builder for a false boolean
 	public JSONSymbol buildFalseBoolean(int position, JSONSymbol result) throws IOException, CustomException {
-		position = pushbackReader.read();
+		position = reader.read();
 		if (position == 'a') {
-			position = pushbackReader.read();
+			position = reader.read();
 			if (position == 'l') {
-				position = pushbackReader.read();
+				position = reader.read();
 				if (position == 's') {
-					position = pushbackReader.read();
+					position = reader.read();
 					if (position == 'e') {
 						result = new JSONSymbol(JSONSymbol.Type.FALSE_BOOLEAN);
 					} else {
@@ -174,11 +176,10 @@ public class JSONAnalyser {
 		while (Character.isDigit(position) || position == 'e' || position == 'E' || position == '+' || position == '-'
 				|| position == '.') {
 			finalNumber += (char) position;
-
-			position = pushbackReader.read();
+			position = reader.read();
 		}
 		result = new JSONSymbol(JSONSymbol.Type.NUMBER, finalNumber);
-		pushbackReader.unread(position);
+		reader.unread(position);
 		return result;
 	}
 }

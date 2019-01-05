@@ -62,7 +62,7 @@ public class AnalyserTest {
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.RIGHT_SQUARE_BRACKET, symbol.type);
 	}
-	
+
 	@Test
 	public void correctTwoBracketsTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("[{"));
@@ -92,7 +92,7 @@ public class AnalyserTest {
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.SPACE, symbol.type);
 	}
-	
+
 	@Test
 	public void correctTabTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("	"));
@@ -146,7 +146,7 @@ public class AnalyserTest {
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.NULL_BOOLEAN, symbol.type);
 	}
-	
+
 	@Test
 	public void invalidNulvTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("nulv"));
@@ -161,7 +161,7 @@ public class AnalyserTest {
 		assertTrue(exception);
 		assertEquals("Error! This is an invalid Null value.", customMessage);
 	}
-	
+
 	@Test
 	public void invalidNuvvTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("nuvv"));
@@ -176,7 +176,7 @@ public class AnalyserTest {
 		assertTrue(exception);
 		assertEquals("Error! This is an invalid Null value.", customMessage);
 	}
-	
+
 	@Test
 	public void invalidNvvvTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("nvvv"));
@@ -205,7 +205,7 @@ public class AnalyserTest {
 		boolean exception = false;
 		String customMessage = "";
 		try {
-			Decipher.next();  
+			Decipher.next();
 		} catch (CustomException error) {
 			exception = true;
 			customMessage = error.getMessage();
@@ -213,14 +213,14 @@ public class AnalyserTest {
 		assertTrue(exception);
 		assertEquals("Error! This is an invalid True value.", customMessage);
 	}
-	
+
 	@Test
 	public void invalidTrvvTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("trvv"));
 		boolean exception = false;
 		String customMessage = "";
 		try {
-			Decipher.next();  
+			Decipher.next();
 		} catch (CustomException error) {
 			exception = true;
 			customMessage = error.getMessage();
@@ -228,14 +228,14 @@ public class AnalyserTest {
 		assertTrue(exception);
 		assertEquals("Error! This is an invalid True value.", customMessage);
 	}
-	
+
 	@Test
 	public void invalidTvvvTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("tvvv"));
 		boolean exception = false;
 		String customMessage = "";
 		try {
-			Decipher.next();  
+			Decipher.next();
 		} catch (CustomException error) {
 			exception = true;
 			customMessage = error.getMessage();
@@ -250,7 +250,7 @@ public class AnalyserTest {
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.FALSE_BOOLEAN, symbol.type);
 	}
-	
+
 	@Test
 	public void invalidFalsvTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("falsv"));
@@ -265,7 +265,7 @@ public class AnalyserTest {
 		assertTrue(exception);
 		assertEquals("Error! This is an invalid False value.", customMessage);
 	}
-	
+
 	@Test
 	public void invalidFalvvTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("falvv"));
@@ -280,7 +280,7 @@ public class AnalyserTest {
 		assertTrue(exception);
 		assertEquals("Error! This is an invalid False value.", customMessage);
 	}
-	
+
 	@Test
 	public void invalidFavvvTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("favvv"));
@@ -310,21 +310,21 @@ public class AnalyserTest {
 		assertTrue(exception);
 		assertEquals("Error! This is an invalid False value.", customMessage);
 	}
-	
+
 	@Test
 	public void correctNumberDigitTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("5"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.NUMBER, symbol.type);
 	}
-	
+
 	@Test
 	public void correctNumberMinusTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("-5"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.NUMBER, symbol.type);
 	}
-	
+
 	@Test
 	public void correctNumberPlusTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("4+4"));
@@ -338,21 +338,21 @@ public class AnalyserTest {
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.NUMBER, symbol.type);
 	}
-	
+
 	@Test
 	public void correctNumberUppercaseExponentialTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("53E+2"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.NUMBER, symbol.type);
 	}
-	
+
 	@Test
 	public void correctNumberDecimalTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("14.37"));
 		JSONSymbol symbol = Decipher.next();
 		assertEquals(JSONSymbol.Type.NUMBER, symbol.type);
 	}
-	
+
 	@Test
 	public void correctNumberStringBooleanInArrayTest() throws IOException, CustomException {
 		Decipher = new JSONAnalyser(new StringReader("[532e-6, \"String\", true]"));

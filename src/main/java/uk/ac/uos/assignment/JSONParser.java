@@ -30,7 +30,7 @@ public class JSONParser {
 			symbolsList.add(thisSymbol);
 			thisSymbol = Analyser.next();
 		}
-		// Removing whitespace.
+		// Collecting symbolList and ignoring spaces.
 		ArrayList<JSONSymbol> noWhitespaceList = new ArrayList<JSONSymbol>();
 		for (int i = 0; i < symbolsList.size(); i++) {
 			JSONSymbol currentSymbol = symbolsList.get(i);
@@ -217,6 +217,7 @@ public class JSONParser {
 	 */
 	public JSONObject parseObject(ArrayList<JSONSymbol> input) throws CustomException {
 		HashMap<String, Object> jsonObject = new HashMap<String, Object>();
+		ArrayList<JSONSymbol> hashPair = new ArrayList<JSONSymbol>();
 		// Checking for valid Object.
 		isValidObject(input);
 		// Assigning Key, Colon and Value depending on their position in the Object.
@@ -224,13 +225,12 @@ public class JSONParser {
 			for (int i = 1; i < input.size() - 3; i = i + 4) {
 				// Collecting position of key.
 				JSONSymbol thisKey = input.get(i);
+				hashPair.add(thisKey);
 				// Collecting position of Colon.
 				JSONSymbol thisColon = input.get(i + 1);
+				hashPair.add(thisColon);
 				// Collecting position of Value
 				JSONSymbol thisValue = input.get(i + 2);
-				ArrayList<JSONSymbol> hashPair = new ArrayList<JSONSymbol>();
-				hashPair.add(thisKey);
-				hashPair.add(thisColon);
 				// Checking for an embedded Object in the Object.
 				if (JSONSymbol.Type.LEFT_CURLY_BRACKET == thisValue.type) {
 					while (isEmbedded(JSONSymbol.Type.RIGHT_CURLY_BRACKET, thisValue.type)) {
